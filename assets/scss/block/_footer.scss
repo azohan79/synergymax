@@ -1,0 +1,168 @@
+.footer {
+    background-color: $colorText;
+    max-width: 100%;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    padding: 77px 232px 52px 329px;
+    &__wrapper {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+    }
+    &__list {
+        &-item {
+            margin-bottom: 15px;
+        }
+        &-link {
+            font-family: 'SF compact text Bold', 'sans-serif';
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19.09px;
+            color: #FFFFFF;
+            transition: all .4s;
+            &:hover {
+                color: #6E7884;
+            }
+        }
+    }
+    &__signUp {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        &-text {
+            font-family: 'SF compact text Bold', 'sans-serif';
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19.09px;
+            text-align: center;
+            color: #fff;
+        }
+        &-img {
+            width: 24px;
+            height: 24px;
+            img {
+                width: 15px;
+                height: 19px;
+                object-fit: cover;
+            }
+        }
+    }
+    &__social {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 109px;
+        &-title {
+            font-family: 'SF compact text Bold', 'sans-serif';
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 19.09px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+    }
+    &__sinergy {
+        font-family: 'SF compact text medium', 'sans-serif';
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 30px;
+        color: #FFFFFF;
+        max-width: 243px;
+    }
+    &__works {
+        margin-bottom: 100px;
+        &-title {
+            font-family: Montserrat;
+            font-weight: 500;
+            font-style: italic;
+            font-size: 16px;
+            line-height: 16px;
+            letter-spacing: -0.37px;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+        }
+        &-logos {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 30px;
+        }
+        &-link {
+            max-width: 105px;
+            height: 30px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+    &__cellar {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 65px;
+        &-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 450px;
+            max-width: 450px;
+            height: 35px;            
+            background: #CBD3D81A;
+            clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+            border-radius: 5px;
+        }
+        &-img {
+            width: 21px;
+            height: 21px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        &-information {
+            font-family: 'SF compact text regular', 'sans-serif';
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 17.9px;
+            letter-spacing: 0%;
+            color: #fff;
+            span {
+                font-family: 'SF compact text Bold';
+                font-weight: 700;
+            }
+        }
+        &-list {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        &-link {
+            font-family:'SF compact text Bold', 'sans-serif';
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19.09px;
+            letter-spacing: 0%;
+            color: #BFC8CF;
+        }
+        &-yare {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            span {
+                font-family: 'SF compact text Bold', 'sans-serif';
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 19.09px;
+                color: #BFC8CF;
+            }            
+        }
+    }
+}

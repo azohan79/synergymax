@@ -1,0 +1,28 @@
+.allProduct {
+    padding: 0 290px 100px 290px;
+    &__title {
+        font-family: 'SF Pro Bold', 'sans-serif';
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 33.41px;
+        color: $colorText;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+    &__item {
+        width: 298px;
+        height: 470px;
+        background-color: #e3e8ec;
+        &-img {
+            margin: 0 auto;
+            margin-bottom: 30px;
+        }
+    }
+}

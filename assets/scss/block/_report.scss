@@ -1,0 +1,70 @@
+.report {
+    margin-bottom: 100px;
+    position: relative;
+    &__bg {
+        min-height: 282px;
+        width: 100%;
+        margin-bottom: 18px;
+    }
+    &__title {
+        position: absolute;
+        top: 77px;
+        left: 363px;
+        font-family: 'SF Pro Black', 'sans-serif';
+        font-weight: 900;
+        font-size: 42.25px;
+        line-height: 50.42px;
+        color: #F1F2F4;
+    }
+    &__descr {
+        position: absolute;
+        top: 143px;
+        left: 363px;
+        font-family: 'SF compact text medium', 'sans-serif';
+        font-weight: 500;
+        font-size: 21.13px;
+        line-height: 25.21px;
+        letter-spacing: 0%;
+        color: #F1F2F4;
+        max-width: 691px;
+    }
+    &__btn {
+        position: absolute;
+        top: 162px;
+        left: 1098px;
+        border: none;
+        width: 162px;
+        height: 44px;
+        gap: 10px;
+        border-radius: 50px;
+        padding-top: 12px;
+        padding-right: 27px;
+        padding-bottom: 12px;
+        padding-left: 27px;          
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'SF Pro medium', 'sans-serif';
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19.09px;
+        color: $colorText;
+        cursor: pointer;
+    }
+    &__pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        &-item {
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+            background-color: #B0BECF;
+            &.active {
+                background-color: $mediumOrange;
+            }
+        }
+       
+    }
+}

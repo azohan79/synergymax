@@ -1,0 +1,57 @@
+.product__counter-coll {
+    -moz-appearance: textfield; /* Убирает стрелки в Firefox */
+    appearance: textfield; /* Убирает стрелки в современных браузерах */
+}
+
+.product__counter-coll::-webkit-inner-spin-button,
+.product__counter-coll::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Убирает отступы */
+}
+
+.product__counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc; /* Граница */
+    border-radius: 5px; /* Скругленные углы */
+    padding: 5px 10px; /* Внутренние отступы */
+    width: fit-content;
+    background-color: #dee6e9; /* Фон */
+}
+
+.product__counter-minus,
+.product__counter-plus {
+    cursor: pointer;
+    font-size: 18px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    font-weight: bold;
+    color: #333; /* Цвет кнопок */
+}
+
+.product__counter-coll {
+    font-size: 16px;
+    font-weight: bold;
+    width: 30px;
+    text-align: center;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.product__item-heart {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.product__item-heart.active {
+    transform: scale(1.2);
+    filter: brightness(1.3);
+}
+
