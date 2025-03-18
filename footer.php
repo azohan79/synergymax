@@ -1,76 +1,76 @@
         <footer class="footer">
             <div class="footer__wrapper">
-                        <!-- Меню каталога -->
-        <ul class="footer__list">
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'footer_catalog',
-                'container'      => false,
-                'items_wrap'     => '%3$s', // Убираем обертку <ul>
-                'walker'         => new Synergymax_Walker_Footer(),
-            ));
-            ?>
-        </ul>
+                <!-- Меню каталога -->
+                <ul class="footer__list">
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'footer_catalog',
+                        'container'      => false,
+                        'items_wrap'     => '%3$s', // Убираем обертку <ul>
+                        'walker'         => new Synergymax_Walker_Footer(),
+                    ));
+                    ?>
+                </ul>
 
-        <!-- Меню для бизнеса -->
-        <ul class="footer__list">
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'footer_business',
-                'container'      => false,
-                'items_wrap'     => '%3$s',
-                'walker'         => new Synergymax_Walker_Footer(),
-            ));
-            ?>
-        </ul>
+                <!-- Меню для бизнеса -->
+                <ul class="footer__list">
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'footer_business',
+                        'container'      => false,
+                        'items_wrap'     => '%3$s',
+                        'walker'         => new Synergymax_Walker_Footer(),
+                    ));
+                    ?>
+                </ul>
 
-        <!-- Меню для клиентов -->
-        <ul class="footer__list">
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'footer_clients',
-                'container'      => false,
-                'items_wrap'     => '%3$s',
-                'walker'         => new Synergymax_Walker_Footer(),
-            ));
-            ?>
-        </ul>
+                <!-- Меню для клиентов -->
+                <ul class="footer__list">
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'footer_clients',
+                        'container'      => false,
+                        'items_wrap'     => '%3$s',
+                        'walker'         => new Synergymax_Walker_Footer(),
+                    ));
+                    ?>
+                </ul>
 
                 <a href="#" class="footer__signUp">
                     <div class="footer__signUp-text">Sign Up</div>
                     <div class="footer__signUp-img">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/footer/Union.svg" alt="sign in">
-                    </div>                    
+                    </div>
                 </a>
 
                 <div class="footer__container-1">
                     <h3 class="footer__social-title">Get to know us better in social media</h3>
                     <!-- Меню социальных сетей (с иконками) -->
-        <ul class="footer__social">
-            <?php
-            $social_links = array(
-                array('url' => '#', 'icon' => 'X.svg'),
-                array('url' => '#', 'icon' => 'Vector (1).svg'),
-                array('url' => '#', 'icon' => 'Instagram icon.svg'),
-                array('url' => '#', 'icon' => 'tictok.svg'),
-                array('url' => '#', 'icon' => 'facebook.svg'),
-                array('url' => '#', 'icon' => 'youtube.svg')
-            );
-            foreach ($social_links as $social) {
-                echo '<li class="footer__social-item">
+                    <ul class="footer__social">
+                        <?php
+                        $social_links = array(
+                            array('url' => '#', 'icon' => 'X.svg'),
+                            array('url' => '#', 'icon' => 'Vector (1).svg'),
+                            array('url' => '#', 'icon' => 'Instagram icon.svg'),
+                            array('url' => '#', 'icon' => 'tictok.svg'),
+                            array('url' => '#', 'icon' => 'facebook.svg'),
+                            array('url' => '#', 'icon' => 'youtube.svg')
+                        );
+                        foreach ($social_links as $social) {
+                            echo '<li class="footer__social-item">
                         <a href="' . esc_url($social['url']) . '" class="footer__social-link">
                             <img src="' . get_template_directory_uri() . '/assets/icons/footer/' . esc_attr($social['icon']) . '" alt="social" class="footer__social-img">
                         </a>
                       </li>';
-            }
-            ?>
-        </ul>
-                    <p class="footer__sinergy">Synergy Max S.L. 
-                        Calle Mayor 4, Barcelona, 46500                        
+                        }
+                        ?>
+                    </ul>
+                    <p class="footer__sinergy">Synergy Max S.L.
+                        Calle Mayor 4, Barcelona, 46500
                         CIF 000000000
                     </p>
                 </div>
-                
+
             </div>
 
             <div class="footer__works">
@@ -84,7 +84,7 @@
                               </a>';
                     }
                     ?>
-                </div>  
+                </div>
             </div>
 
             <div class="footer__cellar">
@@ -93,72 +93,85 @@
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/footer/copy.png" alt="copy">
                     </div>
                     <p class="footer__cellar-information">
-                        Website design & development by <span>MISSOFFDESIGN</span> 
-                    </p>    
+                        Website design & development by <span>MISSOFFDESIGN</span>
+                    </p>
                 </div>
                 <!-- Меню сервисных страниц -->
-        <ul class="footer__cellar-list">
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'footer_services',
-                'container'      => false,
-                'items_wrap'     => '%3$s',
-                'walker'         => new Synergymax_Walker_Footer(),
-            ));
-            ?>
-        </ul>
+                <ul class="footer__cellar-list">
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'footer_services',
+                        'container'      => false,
+                        'items_wrap'     => '%3$s',
+                        'walker'         => new Synergymax_Walker_Footer(),
+                    ));
+                    ?>
+                </ul>
                 <div class="footer__cellar-yare">
                     <span>2024</span>
                     <span>Synergy Max S.L. </span>
                 </div>
             </div>
         </footer>
-    </div>
+        </div>
 
-    <?php wp_footer(); ?>
+        <?php wp_footer(); ?>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const counters = document.querySelectorAll(".product__item-counter");
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const counters = document.querySelectorAll(".product__item-counter");
+                const products = document.querySelectorAll(".product__item");
 
-    counters.forEach(counter => {
-        const minus = counter.querySelector(".product__counter-minus");
-        const plus = counter.querySelector(".product__counter-plus");
-        const input = counter.querySelector(".product__counter-coll");
-        const form = counter.closest(".product__item").querySelector("form");
-        const hiddenQuantity = form.querySelector("input[name='quantity']");
+                if (counters.length > 0 && products.length > 0) {
+                    products.forEach(product => {
+                        const params = product.querySelectorAll(".product__quantity-item");
 
-        if (minus && plus && input && form && hiddenQuantity) {
-            minus.addEventListener("click", function () {
-                let value = parseInt(input.value);
-                if (value > 1) {
-                    input.value = value - 1;
-                    hiddenQuantity.value = input.value; // Обновляем скрытое поле
+                        params.forEach(param => {
+                            param.addEventListener("click", function() {
+                                params.forEach(p => p.classList.remove("active"));
+                                this.classList.add("active");
+                            });
+                        });
+                    });
+
+                    counters.forEach(counter => {
+                        const minus = counter.querySelector(".product__counter-minus");
+                        const plus = counter.querySelector(".product__counter-plus");
+                        const input = counter.querySelector(".product__counter-coll");
+                        const form = counter.closest(".product__item").querySelector("form");
+                        const hiddenQuantity = form ? form.querySelector("input[name='quantity']") : null;
+
+                        if (minus && plus && input && form && hiddenQuantity) {
+                            minus.addEventListener("click", function() {
+                                let value = parseInt(input.value);
+                                if (value > 1) {
+                                    input.value = value - 1;
+                                    hiddenQuantity.value = input.value;
+                                }
+                            });
+
+                            plus.addEventListener("click", function() {
+                                let value = parseInt(input.value);
+                                input.value = value + 1;
+                                hiddenQuantity.value = input.value;
+                            });
+
+                            input.addEventListener("change", function() {
+                                if (input.value < 1 || isNaN(input.value)) {
+                                    input.value = 1;
+                                }
+                                hiddenQuantity.value = input.value;
+                            });
+
+                            form.addEventListener("submit", function(e) {
+                                hiddenQuantity.value = input.value;
+                            });
+                        } 
+                    });
                 }
             });
+        </script>
 
-            plus.addEventListener("click", function () {
-                let value = parseInt(input.value);
-                input.value = value + 1;
-                hiddenQuantity.value = input.value; // Обновляем скрытое поле
-            });
+        </body>
 
-            input.addEventListener("change", function () {
-                if (input.value < 1 || isNaN(input.value)) {
-                    input.value = 1;
-                }
-                hiddenQuantity.value = input.value; // Обновляем скрытое поле
-            });
-
-            // При отправке формы передаем актуальное количество
-            form.addEventListener("submit", function (e) {
-                hiddenQuantity.value = input.value;
-            });
-        }
-    });
-});
-
-</script>
-
-</body>
-</html
+        </html

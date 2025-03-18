@@ -1,0 +1,93 @@
+.aboutForm {
+    padding: 60px 0 65px 0;
+    &__container {
+        max-width: 1170px;
+        margin: 0 auto;
+        background-image: url('../../img/product-card/contact-meneger.jpeg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 20px;
+        padding: 65px 0 65px 85px;
+    }
+    &__form {
+        max-width: 420px;
+        &-title {
+            font-family: 'SF Pro Bold', 'sans-serif';
+            font-weight: 700;
+            font-size: 22px;
+            line-height: 26.25px;
+            color: #fff;
+            margin-bottom: 18px;
+        }
+        &-label {
+            display: block;
+            width: 100%;
+            border-radius: 50px;
+            margin-bottom: 10px;
+            height: 50px;
+        }
+        &-input {
+            font-family: 'SF Pro medium', 'sans-serif';
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19.09px;
+            display: block;
+            width: 100%;
+            border-radius: 50px;
+            margin-bottom: 10px;
+            height: 50px;
+            padding: 15px 0 15px 20px;
+            border: none;
+            background-color: #4d5b62;
+            &:focus {
+                outline: 1px solid #fff;
+            }
+            &::placeholder {
+                color: #fff;
+            }
+        }
+        &-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        &-info {
+            max-width: 234px;
+            font-family: 'SF compact text medium', 'sans-serif';
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 14.32px;
+            color: #fff;
+            a {
+                font-family: 'SF compact text medium', 'sans-serif';
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 14.32px;
+                color: #fff;
+                text-decoration: underline;
+            }
+        }
+        &-btn {
+            width: 114px;
+            height: 43px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'SF compact text medium', 'sans-serif';
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19.09px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(121.88deg, #F0BE78 -4.48%, #C58347 36.98%, #5F3F22 76.8%);
+            &:hover {
+                transition: all .4s;
+                background: linear-gradient(121.88deg, #f0c58a -4.48%, #ad6f34 36.98%, #492e14 76.8%);
+            }
+        }
+    }
+
+}

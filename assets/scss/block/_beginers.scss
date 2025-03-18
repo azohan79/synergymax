@@ -1,0 +1,131 @@
+.beginers {
+    background-color: #f1f2f4;
+    margin-bottom: 40px;
+    padding: 40px 0 40px 0;
+    &__container {
+        max-width: 1260px;
+        margin: 0 auto;
+    }
+    &__wrapper {
+        background-color: #fff;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 50px;
+    }
+    &__img {
+        position: relative;
+        width: 616px;
+        height: 303px;
+        border-radius: 15px;
+        &-popular {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            width: 121px;
+            height: 31px;
+            border-radius: 20px;
+            padding: 7px 14px;
+            background: linear-gradient(121.88deg, #A60000 -4.48%, #FD0054 36.98%);
+            font-family: 'SF Pro Bold', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 16.71px;
+            text-align: center;
+            color: #fff;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+    }
+    &__info {
+        max-width: 550px;
+    }
+    &__title {
+        font-family: 'SF compact text Bold', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19.09px;
+        color: $colorText;
+        margin-bottom: 20px;
+    }
+    &__category {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        margin-bottom: 20px;
+        gap: 5px;
+        &-item {
+            min-width: 75px;
+            height: 21px;
+            padding: 3px 7px;
+            border-radius: 20px;
+            background-color: #DEE6E9;
+            font-family: 'SF compact text medium', sans-serif;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 14.32px;
+            color: $colorText;
+        }
+    }
+    &__descr {
+        font-family: 'SF Pro Regular', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16.71px;
+        margin-bottom: 20px;
+        color: $colorText;
+    }
+    &__progress {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 15px;
+        &-lane {
+            width: 178px;
+            height: 2px;
+            border-radius: 2px;
+            background-color: #748894;
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 122px;
+                height: 2px;
+                border-radius: 3px;
+                background: linear-gradient(121.88deg, #A60000 -4.48%, #FD0054 36.98%);
+            }
+        }
+        &-item {
+            max-width: 39px;
+        }
+        &-name {
+            font-family: 'SF Pro medium', sans-serif;
+            font-weight: 500;
+            font-size: 8px;
+            line-height: 9.55px;
+            text-align: center;
+            color: #748894;
+        }
+        &-info {
+            font-family: 'SF Pro Bold', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 16.71px;
+            color: $colorText;
+            span {
+                font-family: 'SF Pro Bold', sans-serif;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 16.71px;
+                color: #B0BECF;
+            }
+        }
+    }
+}

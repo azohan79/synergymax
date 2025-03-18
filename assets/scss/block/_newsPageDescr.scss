@@ -1,0 +1,91 @@
+.newsPageDescr {
+    max-width: 896px;
+    margin: 0 auto;
+    &__title {
+        font-family: 'SF Pro Bold', 'sans-serif';
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 26.25px;
+        color: #1D1D1F;
+        margin-bottom: 20px;
+    }
+    &__descr {
+        font-family: 'SF Pro medium', 'sans-serif';
+        font-weight: 510;
+        font-size: 16px;
+        line-height: 19.09px;
+        color: #1D1D1F;
+        margin-bottom: 15px;
+        &-last {
+            margin-bottom: 40px;
+        }
+    }
+    &__subtitle {
+        font-family: 'SF Pro Black', 'sans-serif';
+        font-weight: 900;
+        font-size: 16px;
+        line-height: 19.09px;
+        color: #1D1D1F;
+        margin-bottom: 20px;
+    }
+    &__list {
+        margin-left: 40px;
+        list-style-type: disc;
+        margin-bottom: 20px;
+    }
+    &__item {
+        font-family: 'SF Pro medium', 'sans-serif';
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19.09px;
+        color:  #1D1D1F;
+    }
+    &__image {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        margin-bottom: 10px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+    }
+    &__alt {
+        font-family: 'SF compact text medium', 'sans-serif';
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16.71px;
+        text-align: center;
+        color: #1D1D1F;
+        margin-bottom: 40px;
+    }
+    &__mores {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+    &__more {
+        width: 287px;
+        height: 38px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'SF compact text Bold', 'sasns-serif';
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19.09px;
+        text-align: center;
+        color: #356197;
+        border: 1px solid #356197;
+        gap: 7px;
+    }
+    &__video {
+        width: 162px;
+        height: 38px;
+    }
+}

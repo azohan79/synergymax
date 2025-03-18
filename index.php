@@ -98,178 +98,130 @@
 <article class="product">
     <div class="container">
         <h2 class="product__title">Most popular</h2>
-        <div class="product__arrow-prev">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="right arrow" class="product__arrow-img">
-        </div>
-        <div class="product__arrow-next">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="left arrow" class="product__arrow-img">
-        </div>
-<div class="product__container">
-    <div class="product__wrapper">
-        <div class="product__inner">
-            <?php
-            $args = array(
-                'post_type'      => 'product',
-                'posts_per_page' => 8,
-                'meta_key'       => 'total_sales',
-                'orderby'        => 'meta_value_num'
-            );
-            $loop = new WP_Query($args);
 
-            if ($loop->have_posts()) :
-                while ($loop->have_posts()) : $loop->the_post();
-                    global $product;
-                    ?>
-                    <div class="product__item <?php echo $product->is_on_sale() ? 'product__item-discount' : ''; ?>">
-                        
-                        <?php if ($product->is_on_sale()) : ?>
-                            <div class="product__item-percentages">%</div>
-                        <?php endif; ?>
+        <!-- Инициализируем Splide-слайдер так же, как на странице товара -->
+        <div class="splide" id="slider-popular-home" role="group" aria-label="Popular Products Slider">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <?php
+                    // Запрос популярных товаров (как и раньше)
+                    $args = array(
+                        'post_type'      => 'product',
+                        'posts_per_page' => 8, // или сколько вам нужно
+                        'meta_key'       => 'total_sales',
+                        'orderby'        => 'meta_value_num',
+                        'order'          => 'DESC',
+                    );
 
-                        <div class="product__item-img">
-                            <a href="<?php the_permalink(); ?>">
-                                <?php if (has_post_thumbnail()) {
-                                    the_post_thumbnail('medium');
-                                } else { ?>
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/product/default.png" alt="<?php the_title(); ?>">
-                                <?php } ?>
-                            </a>
-                        </div>
+                    $loop = new WP_Query($args);
 
-                        <div class="product__item-heart" data-product-id="<?php echo get_the_ID(); ?>">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/product/heart.png" alt="heart">
-                        </div>
+                    if ($loop->have_posts()) :
+                        while ($loop->have_posts()) : $loop->the_post();
+                            global $product;
 
-                        <h3 class="product__item-title"><?php the_title(); ?></h3>
-                        <h3 class="product__item-subtitle"><?php echo wc_get_product_category_list($product->get_id()); ?></h3>
+                            // Собираем названия категорий (как в вашем коде на странице товара)
+                            $terms = get_the_terms($product->get_id(), 'product_cat');
+                            $category_names = [];
+                            if ($terms && !is_wp_error($terms)) {
+                                foreach ($terms as $term) {
+                                    $category_names[] = $term->name;
+                                }
+                            }
+                            $categories_string = implode(', ', $category_names);
+                            ?>
+                            <li class="splide__slide">
+                                <div class="product__item">
+                                    <a href="<?php the_permalink(); ?>">
+                                        <!-- Изображение товара -->
+                                        <div class="product__item-img allProduct__item-img">
+                                            <?php echo $product->get_image(); ?>
+                                        </div>
 
-                        <!-- Вывод цвета (с изображением) -->
-                        <?php 
-                        $color = $product->get_attribute('color'); // Получаем цвет
-                        if (!empty($color)) :
-                            $color_slug = sanitize_title($color); // Делаем slug для изображения
-                        ?>
-                            <div class="product__item-demonstration product__demonstration">
-                                <h4 class="product__demonstration-name"><?php echo esc_html($color); ?></h4>
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/product/<?php echo esc_attr($color_slug); ?>.png" 
-                                    alt="<?php echo esc_attr($color); ?>" 
-                                    class="product__demonstration-img">
-                            </div>
-                        <?php endif; ?>
-                        <?php 
-                        $volume = $product->get_attribute('volume'); // Получаем объем
-                        if (!empty($volume)) :
-                        ?>
-                                <div class="product__item-prices product__prices">
-                                    <div class="product__prices-quantity product__quantity">
-                                            <span class="product__quantity-item"><?php echo esc_html($volume); ?></span>
-                                    </div>
-                                    <?php endif; ?>
-                                    <div>
+                                        <!-- Если есть скидка, выводим процент -->
                                         <?php if ($product->is_on_sale()) : ?>
-                                        <div class="product__prices-old"><?php echo wc_price($product->get_regular_price()); ?></div>
-                                        <div class="product__prices-price"><?php echo wc_price($product->get_sale_price()); ?></div>
-                                        <?php else : ?>
-                                    <div class="product__prices-price"><?php echo wc_price($product->get_regular_price()); ?></div>
+                                            <div class="product__item-percentages allProduct__item-percentages">%</div>
                                         <?php endif; ?>
-                                    </div>                                   
+
+                                        <!-- Название категорий -->
+                                        <h3 class="product__item-title allProduct__item-title">
+                                            <?php echo $categories_string; ?>
+                                        </h3>
+                                        <!-- Название самого товара -->
+                                        <h3 class="product__item-subtitle allProduct__item-subtitle">
+                                            <?php echo $product->get_name(); ?>
+                                        </h3>
+
+                                        <!-- Демонстрация цвета (при необходимости) -->
+                                        <div class="product__item-demonstration product__demonstration allProduct__demonstraion">
+                                            <?php
+                                            // Если у вас на главной тоже используется ACF-поле для цвета (pa_color),
+                                            // можете аналогичным образом выводить:
+                                            $color = get_field('pa_color');
+                                            if ($color && !empty($color['name']) && !empty($color['img'])) {
+                                                ?>
+                                                <h4 class="product__demonstration-name">
+                                                    <?php echo esc_html($color['name']); ?>
+                                                </h4>
+                                                <img src="<?php echo esc_url($color['img']) ?>" alt="color" class="product__demonstration-img">
+                                            <?php } ?>
+                                        </div>
+                                    </a>
+
+                                    <div class="product__item_foot">
+                                        <!-- Блок цены и выбора объёма -->
+                                        <div class="product__item-prices product__prices">
+                                            <div class="product__prices-quantity product__quantity">
+                                                <?php
+                                                // Аналогично выводим вариации объёма (pa_volume)
+                                                $volume_terms = wc_get_product_terms($product->get_id(), 'pa_volume', array('fields' => 'all'));
+                                                if (!empty($volume_terms) && !is_wp_error($volume_terms)) {
+                                                    foreach ($volume_terms as $index => $term) {
+                                                        $class = ($index === 0) ? 'product__quantity-item active' : 'product__quantity-item';
+                                                        echo '<span class="' . esc_attr($class) . '">' . esc_html($term->name) . '</span>';
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+                                            <div>
+                                                <?php if ($product->is_on_sale()) : ?>
+                                                    <div class="product__prices-old"><?php echo wc_price($product->get_regular_price()); ?></div>
+                                                    <div class="product__prices-price"><?php echo wc_price($product->get_sale_price()); ?></div>
+                                                <?php else : ?>
+                                                    <div class="product__prices-price"><?php echo wc_price($product->get_regular_price()); ?></div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+
+                                        <!-- Блок с формой добавления в корзину и счётчиком -->
+                                        <div class="product__item-footer">
+                                            <div class="product__item-counter product__counter">
+                                                <div class="product__counter-minus"></div>
+                                                <input type="number" class="product__counter-coll" value="1" min="1">
+                                                <div class="product__counter-plus"></div>
+                                            </div>
+                                            <form action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post">
+                                                <input type="hidden" name="quantity" class="product-quantity" value="1">
+                                                <button type="submit" class="product__item-btn">
+                                                    <?php echo esc_html($product->add_to_cart_text()); ?>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-
-                        <div class="product__item-footer">
-                            <div class="product__item-counter product__counter">
-                                <button class="product__counter-minus"></button>
-                                <input type="number" class="product__counter-coll" value="1" min="1">
-                                <button class="product__counter-plus"></button>
-                            </div>
-
-                            <form action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post">
-                                <input type="hidden" name="quantity" class="product-quantity" value="1">
-                                <button type="submit" class="product__item-btn">
-                                    <?php echo esc_html($product->add_to_cart_text()); ?>
-                                </button>
-                            </form>
-                        </div>  
-                    </div>
-                <?php endwhile;
-                wp_reset_postdata();
-            else :
-                echo '<p>No popular products found.</p>';
-            endif;
-            ?>
-        </div>
-    </div>
-</div>
-
-
-    </div>
-</article>
-
-
-<article class="product">
-    <div class="container">
-        <h2 class="product__title">Most popular</h2>
-        <div class="product__arrow-prev">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="right arrow" class="product__arrow-img">
-        </div>
-        <div class="product__arrow-next">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="left arrow" class="product__arrow-img">
-        </div>
-        <div class="product__wrapper">
-            <div class="product__inner">
-                <?php
-                // Запрос популярных товаров WooCommerce
-                $args = array(
-                    'post_type'      => 'product',
-                    'posts_per_page' => 6,
-                    'meta_key'       => 'total_sales',
-                    'orderby'        => 'meta_value_num'
-                );
-                $loop = new WP_Query($args);
-
-                if ($loop->have_posts()) :
-                    while ($loop->have_posts()) : $loop->the_post();
-                        global $product;
-                        ?>
-                        <div class="product__item">
-                            <div class="product__item-img">
-                                <a href="<?php the_permalink(); ?>">
-                                    <?php if (has_post_thumbnail()) {
-                                        the_post_thumbnail('medium');
-                                    } else { ?>
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/product/default.png" alt="<?php the_title(); ?>">
-                                    <?php } ?>
-                                </a>
-                            </div>
-                            <div class="product__item-heart">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/product/heart.png" alt="heart">
-                            </div>
-                            <h3 class="product__item-title"><?php the_title(); ?></h3>
-                            <h3 class="product__item-subtitle"><?php echo wc_get_product_category_list($product->get_id()); ?></h3>
-                            <div class="product__item-demonstration product__demonstration">
-                                <h4 class="product__demonstration-name"><?php echo $product->get_attribute('color'); ?></h4>
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/product/smoky-rose.png" alt="color" class="product__demonstration-img">
-                            </div>
-                            <div class="product__item-prices product__prices">
-                                <div class="product__prices-price"><?php echo $product->get_price_html(); ?></div>
-                            </div>
-                            <div class="product__item-footer">
-                                <form class="cart" action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post" enctype="multipart/form-data">
-                                    <button type="submit" class="product__item-btn">
-                                        <?php echo esc_html($product->add_to_cart_text()); ?>
-                                    </button>
-                                </form>
-                            </div>  
-                        </div>
-                    <?php endwhile;
-                    wp_reset_postdata();
-                else :
-                    echo '<p>No popular products found.</p>';
-                endif;
-                ?>
+                            </li>
+                            <?php
+                        endwhile;
+                        wp_reset_postdata();
+                    else :
+                        echo '<p>No popular products found.</p>';
+                    endif;
+                    ?>
+                </ul>
             </div>
-        </div>
-    </div>
+        </div> <!-- /splide -->
+    </div><!-- /container -->
 </article>
+
 
 
 
@@ -278,7 +230,7 @@
     <div class="container">
         <div class="news__header">
             <h2 class="news__title">Latest news and publications</h2>
-            <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="news__link">View all</a>
+            <a href="/news/" class="news__link">View all</a>
         </div>                    
         <div class="news__wrapper">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="arrow-right" class="news__arrow news__arrow-next" id="next">
@@ -378,5 +330,23 @@
     </article>
 
 </main>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+  // К примеру, инициализация одного из слайдеров
+  var splideElement = document.getElementById('slider-popular-home');
+  if (splideElement) {
+    var splide = new Splide('#slider-popular-home', {
+      type: 'loop',
+      perPage: 5,
+      gap: '1rem',
+      // другие настройки...
+    });
+    splide.mount();
+  }
+
+ 
+});
+</script>
 
 <?php get_footer(); ?>

@@ -1,0 +1,205 @@
+.private {
+    padding: 48px 0 100px 0;
+    &__container {
+        max-width: 966px;
+        margin: 0 auto;
+    }
+    &__title {
+        font-family: 'SF Pro Bold', 'sans-serif';
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 38.19px;
+        text-align: center;
+        color: #1D1D1F;
+        margin-bottom: 45px;
+    }
+    &__wrapper {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    &__information {
+        padding: 25px 27px 33px 27px;
+        width: 473px;
+        &-title {
+            font-family: SF Pro;
+            font-weight: 700;
+            font-size: 28px;
+            line-height: 33.41px;
+            color: $colorText;
+            margin-bottom: 18px;
+        }
+        &-box {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        &-item {
+            width: 200px;
+            margin-bottom: 20px;
+            &--email {
+                width: 100%;
+            }
+        }
+        &-titling {
+            font-family: 'Helvatica light', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.1px;
+            color: #B0BECF;
+            margin-bottom: 16px;
+        }
+        &-value {
+            font-family: 'SF Pro Regular', 'sant-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.71px;
+            color: $colorText;
+            margin-left: 15px;
+        }
+        &-btn {
+            border: none;
+            width: 200px;
+            height: 40px;
+            text-align: center;
+            font-family: 'SF compact text medium', 'sans-serif';
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16.71px;
+            color: $colorText;
+            padding: 34px;
+            cursor: pointer;
+        }
+    }
+    &__orders {
+        padding: 26px 18px 25px 18px;
+        width: 473px;
+        &-title {
+            font-family: 'SF Pro Bold', 'sans-serif';
+            font-weight: 700;
+            font-size: 28px;
+            line-height: 33.41px;
+            color: $colorText;
+            margin-bottom: 40px;
+        }
+        &-item {
+            cursor: pointer;
+            margin-bottom: 10px;
+            &.active {
+                .private__list {
+                    transition: all .4s;
+                    display: block;
+                }
+                .private__orders-chevron {
+                    transition: all .4s;
+                    transform: rotate(-90deg);
+                }
+            }
+            &--box {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 30px;
+            }
+           
+        }
+        &-id {
+            font-family:'SF Pro Regular', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: $colorText;
+        }
+        &-date {
+            font-family:'SF Pro Regular', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: $colorText;
+        }
+        &-status {
+            font-family:'SF Pro Regular', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: $colorText;
+        }
+        &-datum {
+            font-family:'SF Pro Regular', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: $colorText;
+        }
+        &-price {
+            font-family:'SF Pro Regular', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: $colorText;
+        }
+        &-chevron {
+            width: 20px;
+            height: 20px;
+            transform: rotate(90deg);
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+    &__list {
+        display: none;
+        padding: 0 28px;
+        &-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #B0BECF;
+            padding-bottom: 10px;
+        }
+        &-img {
+            width: 41px;
+            height: 40px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        &-name {
+            font-family:'Helvatica light', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.1px;
+            color: $colorText;
+        }
+        &-quantity {
+            font-family:'Helvatica light', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.1px;
+            color: $colorText;
+        }
+        &-price {
+            font-family:'Helvatica light', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.1px;
+            color: $colorText;
+            text-align: right;
+        }
+    }
+}
+.inDelivery {
+    color:#C58347
+}
+.offdelivery {
+        color: #748894;
+}

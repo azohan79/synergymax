@@ -63,3 +63,21 @@
     src: url(../fonts/SF-Compact/SF-Compact-Text-Regular.ttf);
     font-weight: 400;
 }
+
+@font-face {
+    font-family: 'Helvatica Bold';
+    src: url(../../fonts/Helvatica/helvetica_bold.otf);
+    src: url(../../fonts/Helvatica/helvetica_boldoblique.otf);
+    src: url(../../fonts/Helvatica/helvetica_cyr_boldoblique.ttf);
+    src: url(../../fonts/Helvatica/helvetica_cyr_oblique.ttf);
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Helvatica light';
+    src: url(../../fonts/Helvatica/helvetica_light.otf);
+    src: url(../../fonts/Helvatica/helvetica_lightoblique.otf);
+    src: url(../../fonts/Helvatica/helvetica_oblique.otf);
+    src: url(../../fonts/Helvatica/helvetica_regular.otf);
+    font-weight: 400;
+}

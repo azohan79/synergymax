@@ -1,0 +1,103 @@
+.pay {
+    max-width: 473px;
+    &__title {
+        font-family: 'SF Pro Regular', 'sans-serif';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21.48px;       
+        color: $colorText;
+        margin-bottom: 33px;
+    }
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &-name {
+            font-family: 'SF Pro Bold', 'sans-serif';
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 38.19px;
+            color: $colorText;
+            margin-bottom: 25px;
+        }
+    }
+    &__btn {
+        font-family: 'SF Pro Bold', 'sans-serif';
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 23.87px;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        width: 372px;
+        height: 62px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+        background: linear-gradient(121.88deg, #F0BE78 -4.48%, #C58347 36.98%, #5F3F22 76.8%);
+        &:hover {
+            transition: all .4s;
+            background: linear-gradient(121.88deg, #f0c58a -4.48%, #ad6f34 36.98%, #492e14 76.8%);
+        }
+    }
+    &__label {
+        display: flex;
+        align-items: start;
+        justify-content: center;        
+        gap: 6px;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        &-checkbox {
+            display: none;
+        }
+        &-cyrcle {
+            width: 18px; 
+            height: 18px; 
+            border: 1px solid #748894; 
+            border-radius: 100%; 
+            background-color: white; 
+            position: relative;  
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &::after {
+                content: '';
+                position: absolute;
+                width: 10px; 
+                height: 10px; 
+                border-radius: 50%; 
+                background-color: black; 
+                top: 50%; 
+                left: 50%; 
+                transform: translate(-50%, -50%) scale(0);
+                transition: transform 0.2s; 
+            }
+        }
+        &-checkbox:checked + &-cyrcle {
+            border-color: #748894; 
+    
+            &::after {
+                transform: translate(-50%, -50%) scale(1); 
+            }
+        }
+        &-info {
+            font-family: 'SF Pro medium', 'sans-serif';
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 14.32px;
+            color: #393F49;
+            max-width: 275px;
+
+        }
+    }
+    &__information {
+        font-family: 'SF Pro Regular', 'sans-serif';
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14.32px;
+        text-align: center;
+        color: $colorText;
+    }
+}

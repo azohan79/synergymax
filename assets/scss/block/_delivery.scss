@@ -1,0 +1,70 @@
+.delivery {
+    &__title {
+        font-family: 'SF Pro Regular', 'sans-serif';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21.48px;
+        color: $colorText;
+        margin-bottom: 19px;
+        margin-left: 33px;
+    }
+    &__form {
+        max-width: 430px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+    &__label {
+        width: 205px;
+        &-title {
+            font-family: 'Helvatica light', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.1px;
+            color: #B0BECF;
+        }
+        &-input {
+            width: 100%;
+            height: 51px;
+            border-radius: 20px;
+            background-color: #EAEDF3;
+            border: none;
+            font-family: 'SF Pro Regular', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.71px;
+            color: $colorText;
+            &:focus {
+                outline: 1px solid #EAEDF3;
+            }
+            &::placeholder {
+                color: $colorText;
+            }
+        }
+    }
+    &__payMethod {
+        &-title {
+            margin-bottom: 40px;
+            font-family: 'SF Pro Regular', 'sans-serif';
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 21.48px;
+            color: $colorText;
+        }
+        &-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        &-method {
+            font-family: 'SF Pro Regular', 'sans-serif';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: $colorText;
+        }
+    }
+}

@@ -1,0 +1,46 @@
+.newsPageMain {
+    padding: 80px 0 40px 0;
+    background-color: #f0f2f7;
+    max-width: 1260px;
+    margin: 0 auto;
+    &__title {
+        font-family: 'SF Pro Black', 'sans-serif';
+        font-weight: 900;
+        font-size: 60px;
+        line-height: 71.6px;
+        text-align: center;
+        color: #1D1D1F;
+        margin-bottom: 40px;
+    }
+    &__subtitle {
+        font-family: 'SF Pro Bold', 'sans-serif';
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 26.25px;
+        color: #1D1D1F;
+        text-align: center;       
+        max-width: 895px;
+        margin: 0 auto;
+        margin-bottom: 38px;
+    }
+    &__date {
+        font-family: 'SF compact text medium', 'sans-seroif';
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16.71px;
+        text-align: center;
+        color: #1D1D1F;
+        margin-bottom: 40px;
+    }
+    &__image {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
