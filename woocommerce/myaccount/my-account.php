@@ -2,10 +2,10 @@
 defined('ABSPATH') || exit;
 
 /**
- * Шаблон: Мой аккаунт (переопределён)
+ * Шаблон: Personal (переопределён)
  */
 
-// Получаем текущего пользователя
+
 $current_user = wp_get_current_user();
 $first_name   = $current_user->user_firstname;
 $last_name    = $current_user->user_lastname;
@@ -34,55 +34,55 @@ $customer_orders = wc_get_orders(array(
             <h2 class="private__title">Hello, <?php echo esc_html($first_name); ?>!</h2>
             <div class="private__wrapper">
                 <div class="private__information">
-                    <h3 class="private__information-title">Personal information</h3>
+                    <h3 class="private__information-title">Información personal</h3>
                     <div class="private__information-box">
                         <div class="private__information-item">
-                            <h4 class="private__information-titling">Name</h4>
+                            <h4 class="private__information-titling">Nombre</h4>
                             <span class="private__information-value"><?php echo esc_html($first_name); ?></span>
                         </div>
                         <div class="private__information-item">
-                            <h4 class="private__information-titling">Last name</h4>
+                            <h4 class="private__information-titling">Apellido</h4>
                             <span class="private__information-value"><?php echo esc_html($last_name); ?></span>
                         </div>
                         <div class="private__information-item private__information-item--email">
-                            <h4 class="private__information-titling">Email address</h4>
+                            <h4 class="private__information-titling">Correo electrónico</h4>
                             <span class="private__information-value"><?php echo esc_html($email); ?></span>
                         </div>
                         <div class="private__information-item">
-                            <h4 class="private__information-titling">Phone number</h4>
+                            <h4 class="private__information-titling">Número de teléfono</h4>
                             <span class="private__information-value"><?php echo esc_html($phone); ?></span>
                         </div>
-                        <button class="private__information-btn">Change information</button>
+                        <button class="private__information-btn">Cambiar información</button>
                     </div>
                     <div class="private__information-address">
-                        <h3 class="private__information-title">Delivery address</h3>
+                        <h3 class="private__information-title">Dirección de entrega</h3>
                         <div class="private__information-box">
                             <div class="private__information-item">
-                                <h4 class="private__information-titling">Country</h4>
+                                <h4 class="private__information-titling">País</h4>
                                 <span class="private__information-value"><?php echo esc_html($country); ?></span>
                             </div>
                             <div class="private__information-item">
-                                <h4 class="private__information-titling">Province</h4>
+                                <h4 class="private__information-titling">Provincia</h4>
                                 <span class="private__information-value"><?php echo esc_html($state); ?></span>
                             </div>
                             <div class="private__information-item">
-                                <h4 class="private__information-titling">City</h4>
+                                <h4 class="private__information-titling">Ciudad</h4>
                                 <span class="private__information-value"><?php echo esc_html($city); ?></span>
                             </div>
                             <div class="private__information-item">
-                                <h4 class="private__information-titling">Address</h4>
+                                <h4 class="private__information-titling">DIRECCIÓN</h4>
                                 <span class="private__information-value"><?php echo esc_html($address); ?></span>
                             </div>
                             <div class="private__information-item private__information-item--addres">
                                 <h4 class="private__information-titling">Index</h4>
                                 <span class="private__information-value"><?php echo esc_html($postcode); ?></span>
                             </div>
-                            <button class="private__information-btn">Change information</button>
+                            <button class="private__information-btn">Cambiar información</button>
                         </div>
                     </div>
                 </div>
                 <div class="private__orders">
-                    <h2 class="private__orders-title">Orders</h2>
+                    <h2 class="private__orders-title">Pedidos</h2>
 
                     <?php if (!empty($customer_orders)) : ?>
                         <?php 
@@ -102,7 +102,7 @@ $customer_orders = wc_get_orders(array(
                                         <?php echo esc_html($order_status); ?>
                                     </div>
                                     <div class="private__orders-datum <?php echo esc_attr($order_status); ?>">
-                                        <!-- Пример: если хотите показывать "22.01.25" или что-то -->
+                                        
                                         <?php // echo '22.01.25'; ?>
                                     </div>
                                     <div class="private__orders-price"><?php echo $order_total; ?></div>
@@ -113,7 +113,7 @@ $customer_orders = wc_get_orders(array(
                                     </div>
                                 </div>
 
-                                <!-- Список товаров в заказе -->
+                                
                                 <ul class="private__orders-list private__list">
                                     <?php 
                                     foreach ($order->get_items() as $item_id => $item) :
@@ -141,7 +141,7 @@ $customer_orders = wc_get_orders(array(
                             </div>
                         <?php endforeach; ?>
                     <?php else : ?>
-                        <p>You have no orders yet.</p>
+                        <p>Aún no tienes pedidos</p>
                     <?php endif; ?>
                 </div>
             </div>

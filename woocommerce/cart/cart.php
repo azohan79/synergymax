@@ -21,10 +21,10 @@ defined('ABSPATH') || exit;
 <main class="content">
     <article class="basket">
         <div class="basket__container">
-            <h1 class="basket__title">My cart</h1>
+            <h1 class="basket__title">Mi carrito</h1>
             <div class="basket__wrapper">
                 <ul class="basket__products">
-                    <h2 class="basket__products-title">In my cart</h2>
+                    <h2 class="basket__products-title">En mi carrito</h2>
                     <?php foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                         $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
                         $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
@@ -94,19 +94,19 @@ defined('ABSPATH') || exit;
 
                 </ul>
                 <div class="basket__pay pay">
-                    <h2 class="pay__title">To pay</h2>
+                    <h2 class="pay__title">Pagar</h2>
                     <div class="pay__top">
                         <div class="pay__top-name">Total</div>
                         <div class="pay__top-name"><?php echo WC()->cart->get_cart_total(); ?></div>
                     </div>
                     
-                    <button type="submit" form="checkout" class="button alt pay__btn" id="checkoutButton" disabled>Pay</button>
+                    <button type="submit" form="checkout" class="button alt pay__btn" id="checkoutButton" disabled>Pagar</button>
                     <label class="pay__label">
                         <input type="checkbox" class="pay__label-checkbox" id="agreeCheckbox">
                         <span class="pay__label-cyrcle"></span>
-                        <p class="pay__label-info">I agree with the <a href="/privacy-policy/">rules</a> for using the trading platform and return</p>
+                        <p class="pay__label-info">Estoy de acuerdo con el <a href="/privacy-policy/">normas</a> para utilizar la plataforma de negociación y devolver</p>
                     </label>
-                    <div class="pay__information">Please note that all payments are made on the banks' side, we do not have access to your payment data.</div>
+                    <div class="pay__information">Tenga en cuenta que todos los pagos se realizan en el lado de los bancos, no tenemos acceso a sus datos de pago.</div>
                 </div>
 
             </div>

@@ -9,10 +9,10 @@
                 <div class="mainSection__information">
                     <h1 class="mainSection__title">
                         <span>Synergy</span> 
-                        of professional knowledge and modern technologies
+                        de conocimientos profesionales y tecnologías modernas
                     </h1>
-                    <h2 class="mainSection__description">Production and sale of nail care product</h2>
-                    <a href="<?php echo home_url('/shop/'); ?>" class="mainSection__link">Go to catalog</a>
+                    <h2 class="mainSection__description">Producción y venta de productos para el cuidado de las uñas.</h2>
+                    <a href="<?php echo home_url('/shop/'); ?>" class="mainSection__link">Ir al catálogo</a>
                 </div>
                 <div class="mainSection__image">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/bg/bg-main.jpeg" alt="bg-mainSection" class="mainSection__image-img">
@@ -29,7 +29,7 @@
 
                 <div class="column column-1">
                     <div class="initalCatalog__item initalCatalog__item-1">
-                        <h2 class="initalCatalog__title">Gel System</h2>
+                        <h2 class="initalCatalog__title">Sistema de gel</h2>
                         <div class="initalCatalog__item-img">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/initalCatalog/gelSystem.png" alt="Gel System">
                         </div>                            
@@ -38,7 +38,7 @@
 
                 <div class="column column-2">
                     <div class="initalCatalog__item initalCatalog__item-2">
-                        <h2 class="initalCatalog__title">Soak Off <br> System</h2>
+                        <h2 class="initalCatalog__title">Remojo <br> Systema</h2>
                         <div class="initalCatalog__item-img">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/initalCatalog/SoakOffSystem.png" alt="Soak Off System">
                         </div>                            
@@ -53,13 +53,13 @@
 
                 <div class="column column-3">
                     <div class="initalCatalog__item initalCatalog__item-4">
-                        <h2 class="initalCatalog__title">Acrili System</h2>
+                        <h2 class="initalCatalog__title">Acrilic Systema</h2>
                         <div class="initalCatalog__item-img">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/initalCatalog/AcrylicSystem.png" alt="Acrylic System">
                         </div>                                
                     </div>    
                     <div class="initalCatalog__item initalCatalog__item-5">
-                        <h2 class="initalCatalog__title initalCatalog__title-white">Accessories</h2>
+                        <h2 class="initalCatalog__title initalCatalog__title-white">Accesorios</h2>
                         <div class="initalCatalog__item-img">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/initalCatalog/Accessories.png" alt="Accessories">
                         </div>                            
@@ -67,7 +67,7 @@
                 </div>
 
             </div>
-            <a href="<?php echo home_url('/shop/'); ?>" class="initalCatalog__allcatalog">See all categories</a>
+            <a href="<?php echo home_url('/shop/'); ?>" class="initalCatalog__allcatalog">Ver todas las categorías</a>
         </div>
     </div>
 </article>
@@ -76,14 +76,14 @@
 <article class="report">
     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/bg/bg-3yare.jpeg.jpeg" alt="bg" class="report__bg">
     
-    <h2 class="report__title"><?php echo get_theme_mod('report_title', 'В августе нам исполнилось 3 года!'); ?></h2>
+    <h2 class="report__title"><?php echo get_theme_mod('report_title', 'Pronto estaremos en una exposición en Italia.'); ?></h2>
     
     <p class="report__descr">
-        <?php echo get_theme_mod('report_description', 'Посмотрите фото и видео-отчет о том, как компания Synergy Max отпраздновала своё трехлетие. Катания на яхте и многое другое.'); ?>
+        <?php echo get_theme_mod('report_description', 'Vea el reportaje fotográfico y en vídeo sobre cómo Synergy Max participó en la exposición.'); ?>
     </p>
     
     <button class="report__btn">
-        <span><?php echo get_theme_mod('report_button_text', 'Смотреть'); ?></span>
+        <span><?php echo get_theme_mod('report_button_text', 'Mirar'); ?></span>
         <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="arrow-right">
     </button>
     
@@ -97,29 +97,31 @@
 
 <article class="product">
     <div class="container">
-        <h2 class="product__title">Most popular</h2>
+        <h2 class="product__title">Puente popular</h2>
 
-        <!-- Инициализируем Splide-слайдер так же, как на странице товара -->
+        
         <div class="splide" id="slider-popular-home" role="group" aria-label="Popular Products Slider">
             <div class="splide__track">
                 <ul class="splide__list">
                     <?php
-                    // Запрос популярных товаров (как и раньше)
-                    $args = array(
-                        'post_type'      => 'product',
-                        'posts_per_page' => 8, // или сколько вам нужно
-                        'meta_key'       => 'total_sales',
-                        'orderby'        => 'meta_value_num',
-                        'order'          => 'DESC',
-                    );
-
-                    $loop = new WP_Query($args);
+					
+				$args = array(
+                    'post_type'      => 'product',
+                    'posts_per_page' => 4,
+					'post_status'    => 'publish',
+					'post_parent'    => 0,
+                    'meta_key'       => 'total_sales',
+                    'orderby'        => 'date',
+                    'order'          => 'DESC',
+                );
+                $loop = new WP_Query($args);
+					
 
                     if ($loop->have_posts()) :
                         while ($loop->have_posts()) : $loop->the_post();
                             global $product;
 
-                            // Собираем названия категорий (как в вашем коде на странице товара)
+                            
                             $terms = get_the_terms($product->get_id(), 'product_cat');
                             $category_names = [];
                             if ($terms && !is_wp_error($terms)) {
@@ -132,30 +134,29 @@
                             <li class="splide__slide">
                                 <div class="product__item">
                                     <a href="<?php the_permalink(); ?>">
-                                        <!-- Изображение товара -->
+                                        
                                         <div class="product__item-img allProduct__item-img">
                                             <?php echo $product->get_image(); ?>
                                         </div>
 
-                                        <!-- Если есть скидка, выводим процент -->
+                                        
                                         <?php if ($product->is_on_sale()) : ?>
                                             <div class="product__item-percentages allProduct__item-percentages">%</div>
                                         <?php endif; ?>
 
-                                        <!-- Название категорий -->
+                                        
                                         <h3 class="product__item-title allProduct__item-title">
                                             <?php echo $categories_string; ?>
                                         </h3>
-                                        <!-- Название самого товара -->
+                                        
                                         <h3 class="product__item-subtitle allProduct__item-subtitle">
                                             <?php echo $product->get_name(); ?>
                                         </h3>
 
-                                        <!-- Демонстрация цвета (при необходимости) -->
+                                        
                                         <div class="product__item-demonstration product__demonstration allProduct__demonstraion">
                                             <?php
-                                            // Если у вас на главной тоже используется ACF-поле для цвета (pa_color),
-                                            // можете аналогичным образом выводить:
+                                            
                                             $color = get_field('pa_color');
                                             if ($color && !empty($color['name']) && !empty($color['img'])) {
                                                 ?>
@@ -168,11 +169,11 @@
                                     </a>
 
                                     <div class="product__item_foot">
-                                        <!-- Блок цены и выбора объёма -->
+                                        
                                         <div class="product__item-prices product__prices">
                                             <div class="product__prices-quantity product__quantity">
                                                 <?php
-                                                // Аналогично выводим вариации объёма (pa_volume)
+                                                
                                                 $volume_terms = wc_get_product_terms($product->get_id(), 'pa_volume', array('fields' => 'all'));
                                                 if (!empty($volume_terms) && !is_wp_error($volume_terms)) {
                                                     foreach ($volume_terms as $index => $term) {
@@ -192,7 +193,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- Блок с формой добавления в корзину и счётчиком -->
+                                        
                                         <div class="product__item-footer">
                                             <div class="product__item-counter product__counter">
                                                 <div class="product__counter-minus"></div>
@@ -218,19 +219,19 @@
                     ?>
                 </ul>
             </div>
-        </div> <!-- /splide -->
-    </div><!-- /container -->
+        </div> 
+    </div>
 </article>
 
 
 
 
-    <!-- Блок с новостями -->
+    
  <article class="news">
     <div class="container">
         <div class="news__header">
-            <h2 class="news__title">Latest news and publications</h2>
-            <a href="/news/" class="news__link">View all</a>
+            <h2 class="news__title">Últimas noticias y publicaciones</h2>
+            <a href="/news/" class="news__link">Ver todo</a>
         </div>                    
         <div class="news__wrapper">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="arrow-right" class="news__arrow news__arrow-next" id="next">
@@ -288,17 +289,18 @@
     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/bg/wholesale.jpeg" alt="wholesale" class="report__bg wholesale__bg">
     
     <h2 class="report__title wholesale__title">
-        <?php echo get_theme_mod('wholesale_title', 'Are you interested in wholesale purchase?'); ?>
+        <?php echo get_theme_mod('wholesale_title', '¿Estas interesado en comprar al por mayor?'); ?>
     </h2>
     
     <p class="report__descr wholesale__descr">
-        <?php echo get_theme_mod('wholesale_description', 'Submit a request for a quote and we will give you an interesting offer.'); ?>
+        <?php echo get_theme_mod('wholesale_description', 'Envíenos una solicitud de presupuesto y le haremos una oferta interesante.'); ?>
     </p>
     
-    <a href="<?php echo esc_url(get_theme_mod('wholesale_button_link', '#')); ?>" class="report__btn wholesale__btn">
-        <span><?php echo get_theme_mod('wholesale_button_text', 'Submit'); ?></span>
+	    <button class="report__btn">
+        <span><?php echo get_theme_mod('report_button_text', 'Entregar'); ?></span>
         <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="arrow-right">
-    </a>
+        </button>
+	
     
     <div class="report__pagination wholesale__pagination">
         <span class="report__pagination-item wholesale__pagination-item active"></span>
@@ -310,20 +312,20 @@
 
 
 
-    <!-- Блок с формой обратной связи -->
+    
     <article class="feedback">
         <div class="feedback__window">
-            <h2 class="feedback__title">Let us know if you have any questions</h2>
+            <h2 class="feedback__title">Déjanos saber si tienes alguna pregunta.</h2>
             <form action="#" class="feedback__form">
                 <label class="feedback__label">
-                    <input type="text" id="name" name="name" class="feedback__input" required placeholder="Your name*">
+                    <input type="text" id="name" name="name" class="feedback__input" required placeholder="Su nombre*">
                 </label>
                 <label class="feedback__label">
-                    <input type="tel" id="phone" name="phone" class="feedback__input" required placeholder="Your phone number*">
+                    <input type="tel" id="phone" name="phone" class="feedback__input" required placeholder="Tu número de teléfono*">
                 </label>
                 <div class="feedback__wrapper">
-                    <span class="feedback__information">All fields with an asterisk (*) are required. By sending this letter, you agree to the processing of <a href="#">personal data</a></span>
-                    <button class="feedback__btn">Send</button>
+                    <span class="feedback__information">Todos los campos marcados con un asterisco (*) son obligatorios. Al enviar esta carta, usted acepta el procesamiento de <a href="#">datos personales</a></span>
+                    <button class="feedback__btn">Enviar</button>
                 </div>
             </form>
         </div>
@@ -333,14 +335,14 @@
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-  // К примеру, инициализация одного из слайдеров
+  
   var splideElement = document.getElementById('slider-popular-home');
   if (splideElement) {
     var splide = new Splide('#slider-popular-home', {
       type: 'loop',
       perPage: 5,
       gap: '1rem',
-      // другие настройки...
+      
     });
     splide.mount();
   }

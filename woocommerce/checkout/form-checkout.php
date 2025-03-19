@@ -20,7 +20,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 <div class="basket__container">
     <div class="basket__delivery delivery">
-        <h2 class="delivery__title">Delivery address</h2>
+        <h2 class="delivery__title">Dirección de entrega</h2>
 
         <form id="checkout" name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data">
 
@@ -44,7 +44,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
             <div class="delivery__payMethod">
                 <?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
-                <h3 class="delivery__payMethod-title">Payment method</h3>
+                <h3 class="delivery__payMethod-title">Método de pago</h3>
 
                 <?php do_action('woocommerce_checkout_before_order_review'); ?>
 

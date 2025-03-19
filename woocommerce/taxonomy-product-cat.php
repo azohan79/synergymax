@@ -133,7 +133,7 @@ get_header('shop'); ?>
 					}
 				} else {
 					// Если товаров нет
-					echo '<p>No products found in this category.</p>';
+					echo '<p>No se encontraron productos en esta categoría.</p>';
 				}
 				?>
 			</div>
@@ -142,12 +142,12 @@ get_header('shop'); ?>
 	<!-- Блок оптовых продаж -->
 	<article class="report wholesale">
 		<img src="<?php echo get_template_directory_uri(); ?>/assets/img/bg/wholesale.jpeg" alt="wholesale" class="report__bg wholesale__bg">
-		<h2 class="report__title wholesale__title">Are you interested in wholesale purchase?</h2>
+		<h2 class="report__title wholesale__title">¿Estas interesado en comprar al por mayor?</h2>
 		<p class="report__descr wholesale__descr">
-			Submit a request for a quote and we will give you an interesting offer
+			Envíenos una solicitud de cotización y le haremos una oferta interesante.
 		</p>
 		<button class="report__btn wholesale__btn">
-			<span>Submit</span>
+			<span>Entregar</span>
 			<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="arrow-right">
 		</button>
 	</article>
@@ -155,19 +155,19 @@ get_header('shop'); ?>
 	<!-- Форма обратной связи -->
 	<article class="feedback">
 		<div class="feedback__window">
-			<h2 class="feedback__title">Let us know if you have any questions</h2>
+			<h2 class="feedback__title">Déjanos saber si tienes alguna pregunta.</h2>
 			<form action="#" class="feedback__form">
 				<label class="feedback__label">
-					<input type="text" id="name" name="name" class="feedback__input" required placeholder="Your name*">
+					<input type="text" id="name" name="name" class="feedback__input" required placeholder="Su nombre*">
 				</label>
 				<label class="feedback__label">
-					<input type="tel" id="phone" name="phone" class="feedback__input" required placeholder="Your phone number*">
+					<input type="tel" id="phone" name="phone" class="feedback__input" required placeholder="Tu número de teléfono*">
 				</label>
 				<div class="feedback__wrapper">
 					<span class="feedback__information">
-						All fields with an asterisk (*) are required. By sending this letter, you agree to the processing of <a href="#">personal data</a>
+						Todos los campos marcados con un asterisco (*) son obligatorios. Al enviar esta carta, usted acepta el procesamiento de <a href="#">datos personales</a>
 					</span>
-					<button class="feedback__btn">Send</button>
+					<button class="feedback__btn">Enviar</button>
 				</div>
 			</form>
 		</div>

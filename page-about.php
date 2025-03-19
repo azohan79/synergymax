@@ -28,15 +28,15 @@ get_header();
 
     <article class="aboutSectionOne">
         <div class="aboutSectionOne__container">
-            <!-- ACF-поле: section_one_title -->
+            
             <h2 class="aboutSectionOne__title"><?php the_field('section_one_title'); ?></h2>
 
-            <!-- ACF-поле: section_one_paragraphs (или несколько полей) -->
+            
             <p class="aboutSectionOne__descr"><?php the_field('section_one_paragraph1'); ?></p>
             <p class="aboutSectionOne__descr"><?php the_field('section_one_paragraph2'); ?></p>
 
             <div class="aboutSectionOne__wrapper">
-                <!-- Пример полей для “статистики” -->
+                
                 <div class="aboutSectionOne__item">
                     <span class="aboutSectionOne__item-title"><?php the_field('stat_1_value'); ?></span>
                     <span class="aboutSectionOne__item-subtitle"><?php the_field('stat_1_label'); ?></span>
@@ -106,22 +106,22 @@ get_header();
             <article class="aboutForm">
                 <div class="aboutForm__container">
                     <form action="#" class="aboutForm__form">
-                        <h3 class="aboutForm__form-title">Contact us</h3>
+                        <h3 class="aboutForm__form-title">Contacta con nosotras</h3>
                         <label class="aboutForm__form-label">
-                            <input type="name" name="name" class="aboutForm__form-input" required placeholder="Your name*"> 
+                            <input type="name" name="name" class="aboutForm__form-input" required placeholder="Su nombre*"> 
                         </label>
                         <label class="aboutForm__form-label">
-                            <input type="email" name="email" class="aboutForm__form-input" required placeholder="Your e-mail address*"> 
+                            <input type="email" name="email" class="aboutForm__form-input" required placeholder="Su dirección de correo electrónico*"> 
                         </label>
                         <div class="aboutForm__form-bottom">
-                            <p class="aboutForm__form-info">All fields with an asterisk (*) are required. By sending this letter, you agree to the processing of <a href="#">personal data</a></p>
-                            <button class="aboutForm__form-btn" type="submit">Send</button>
+                            <p class="aboutForm__form-info">Todos los campos marcados con un asterisco (*) son obligatorios. Al enviar esta carta, usted acepta el procesamiento de<a href="#">datos personales</a></p>
+                            <button class="aboutForm__form-btn" type="submit">Enviar</button>
                         </div>                       
                     </form>
                 </div>
                 
             </article>
-    <!-- При желании можно добавить вывод контента из редактора WP -->
+    
     <div class="custom-wp-content">
         <?php
         while ( have_posts() ) : the_post(); 

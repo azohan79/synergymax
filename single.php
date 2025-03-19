@@ -70,7 +70,7 @@
 				$link1 = get_field('link1');
 				if ( $link1 ) : ?>
 					<a href="<?php echo esc_url($link1); ?>" class="newsPageDescr__more">
-						<span>Learn more link example style</span>
+						<span>Ejemplo de estilo de enlace para aprender más</span>
 						<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right-blue.svg" alt="chewron-blue">
 					</a>
 				<?php endif; ?>
@@ -79,7 +79,7 @@
 				$video_link = get_field('video_link');
 				if ( $video_link ) : ?>
 					<a href="<?php echo esc_url($video_link); ?>" class="newsPageDescr__more newsPageDescr__video">
-						<span>Watch video</span>
+						<span>Ver vídeo</span>
 						<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/news/Play-Circle.svg" alt="Play-Circle">
 					</a>
 				<?php endif; ?>
@@ -96,8 +96,8 @@
     <article class="news">    
         <div class="news__container">
             <div class="news__header">
-                <h2 class="news__title">Latest news and publications</h2>
-                <a href="#" class="news__link">View all</a>
+                <h2 class="news__title">Últimas noticias y publicaciones</h2>
+                <a href="/news/" class="news__link">Ver todo</a>
             </div>
 
             <?php
@@ -158,7 +158,7 @@
                 ?>
 
             <?php else : ?>
-                <p>No related news found.</p>
+                <p>No se encontraron noticias relacionadas.</p>
             <?php endif; ?>
         </div>
     </article>

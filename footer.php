@@ -1,6 +1,6 @@
         <footer class="footer">
             <div class="footer__wrapper">
-                <!-- Меню каталога -->
+                
                 <ul class="footer__list">
                     <?php
                     wp_nav_menu(array(
@@ -12,7 +12,7 @@
                     ?>
                 </ul>
 
-                <!-- Меню для бизнеса -->
+                
                 <ul class="footer__list">
                     <?php
                     wp_nav_menu(array(
@@ -24,7 +24,7 @@
                     ?>
                 </ul>
 
-                <!-- Меню для клиентов -->
+                
                 <ul class="footer__list">
                     <?php
                     wp_nav_menu(array(
@@ -37,15 +37,15 @@
                 </ul>
 
                 <a href="#" class="footer__signUp">
-                    <div class="footer__signUp-text">Sign Up</div>
+                    <div class="footer__signUp-text">Inscribirse</div>
                     <div class="footer__signUp-img">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/footer/Union.svg" alt="sign in">
                     </div>
                 </a>
 
                 <div class="footer__container-1">
-                    <h3 class="footer__social-title">Get to know us better in social media</h3>
-                    <!-- Меню социальных сетей (с иконками) -->
+                    <h3 class="footer__social-title">Conócenos mejor en las redes sociales</h3>
+                    
                     <ul class="footer__social">
                         <?php
                         $social_links = array(
@@ -74,7 +74,7 @@
             </div>
 
             <div class="footer__works">
-                <h4 class="footer__works-title">We work with</h4>
+                <h4 class="footer__works-title">Nosotros trabajamos con</h4>
                 <div class="footer__works-logos">
                     <?php
                     $payment_methods = array('visa.png', 'mastercard.png', 'maestro.png', 'apple-pay.png', 'google-pay.png', 'diners-club.png', 'discover.png', 'unionPay.png', 'JCB.png');
@@ -96,7 +96,7 @@
                         Website design & development by <span>MISSOFFDESIGN</span>
                     </p>
                 </div>
-                <!-- Меню сервисных страниц -->
+                
                 <ul class="footer__cellar-list">
                     <?php
                     wp_nav_menu(array(

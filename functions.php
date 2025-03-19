@@ -52,10 +52,14 @@ add_action('wp_enqueue_scripts', 'synergymax_styles_scripts');
 
 
 
+
 class Synergymax_Walker_Nav extends Walker_Nav_Menu
 {
-    private $combine_items = array("About Us", "Partnership");
-    private $combine_items_right = array("Events", "News", "Contacts");
+    // Левая часть
+    private $combine_items = array("Sobre", "Asociación");
+    // Правая часть
+    private $combine_items_right = array("Eventos", "Noticas", "Contactos");
+
     private $open_combined = false;
     private $open_combined_right = false;
 
@@ -66,40 +70,43 @@ class Synergymax_Walker_Nav extends Walker_Nav_Menu
 
     function start_el(&$output, $item, $depth = 0, $args = null, $id = 0)
     {
-        $classes = implode(' ', $item->classes);
-
-        // Объединяем "About Us" и "Partnership" в одном <li>
-        if (in_array($item->title, $this->combine_items)) {
+        // Левая часть
+        if ( in_array($item->title, $this->combine_items, true) ) {
             if (!$this->open_combined) {
                 $output .= '<li class="header__item">';
                 $this->open_combined = true;
             }
-            $output .= '<a href="' . esc_url($item->url) . '" class="header__link">' . esc_html($item->title) . '</a> ';
-            return; // Не закрываем <li> здесь
+            $output .= '<a href="' . esc_url($item->url) . '" class="header__link">' 
+                . esc_html($item->title) . '</a> ';
+            return;
         }
 
-        // Объединяем "Events", "News" и "Contacts" в одном <li>
-        if (in_array($item->title, $this->combine_items_right)) {
+        // Правая часть
+        if ( in_array($item->title, $this->combine_items_right, true) ) {
             if (!$this->open_combined_right) {
                 $output .= '<li class="header__item header__item-last">';
                 $this->open_combined_right = true;
             }
-            $output .= '<a href="' . esc_url($item->url) . '" class="header__link">' . esc_html($item->title) . '</a> ';
+            $output .= '<a href="' . esc_url($item->url) . '" class="header__link">'
+                . esc_html($item->title) . '</a> ';
             return;
         }
 
-        // Обычные пункты меню
-        $output .= '<li class="header__item"><a href="' . esc_url($item->url) . '" class="header__link">' . esc_html($item->title) . '</a></li>';
+        // Обычный пункт
+        $output .= '<li class="header__item"><a href="' . esc_url($item->url) . '" class="header__link">' 
+                 . esc_html($item->title) . '</a></li>';
     }
 
     function end_el(&$output, $item, $depth = 0, $args = null)
     {
-        // Закрываем объединенные пункты только после последнего элемента группы
-        if ($item->title == "Partnership" && $this->open_combined) {
+        // Закрываем общий <li> слева
+        if ( $item->title === "Asociación" && $this->open_combined ) {
             $output .= '</li>';
             $this->open_combined = false;
         }
-        if ($item->title == "Contacts" && $this->open_combined_right) {
+
+        // Закрываем общий <li> справа
+        if ( $item->title === "Contactos" && $this->open_combined_right ) {
             $output .= '</li>';
             $this->open_combined_right = false;
         }
@@ -107,6 +114,7 @@ class Synergymax_Walker_Nav extends Walker_Nav_Menu
 }
 
 
+// Регистрируем меню
 function register_synergymax_menus()
 {
     register_nav_menus(array(
@@ -115,6 +123,7 @@ function register_synergymax_menus()
     ));
 }
 add_action('after_setup_theme', 'register_synergymax_menus');
+
 
 function create_news_post_type()
 {
@@ -164,29 +173,29 @@ function synergymax_customize_register($wp_customize)
 {
     // Заголовок блока "Годовщина"
     $wp_customize->add_setting('report_title', array(
-        'default'   => 'В августе нам исполнилось 3 года!',
+        'default'   => '¡En agosto se lanzó hace 3 días!',
         'transport' => 'refresh',
     ));
     $wp_customize->add_control('report_title', array(
-        'label'    => 'Заголовок блока "Годовщина"',
+        'label'    => 'Bloque "Годовщина"',
         'section'  => 'synergymax_report_section',
         'type'     => 'text',
     ));
 
     // Описание блока
     $wp_customize->add_setting('report_description', array(
-        'default'   => 'Посмотрите фото и видео-отчет о том, как компания Synergy Max отпраздновала своё трехлетие. Катания на яхте и многое другое.',
+        'default'   => 'Muestre fotografías y vídeos de la compañía Synergy Max con tres nuevas funciones. Катания на яхте и многое другое.',
         'transport' => 'refresh',
     ));
     $wp_customize->add_control('report_description', array(
-        'label'    => 'Описание блока "Годовщина"',
+        'label'    => 'Descripción del bloque "Годовщина"',
         'section'  => 'synergymax_report_section',
         'type'     => 'textarea',
     ));
 
     // Текст кнопки
     $wp_customize->add_setting('report_button_text', array(
-        'default'   => 'Смотреть',
+        'default'   => 'Hablar',
         'transport' => 'refresh',
     ));
     $wp_customize->add_control('report_button_text', array(
@@ -197,7 +206,7 @@ function synergymax_customize_register($wp_customize)
 
     // Добавляем секцию в Customizer
     $wp_customize->add_section('synergymax_report_section', array(
-        'title'    => 'Настройки блока "Годовщина"',
+        'title'    => 'Configuración del bloque de aniversario',
         'priority' => 30,
     ));
 }
@@ -207,22 +216,22 @@ function synergymax_customize_wholesale($wp_customize)
 {
     // Заголовок блока "Оптовые закупки"
     $wp_customize->add_setting('wholesale_title', array(
-        'default'   => 'Are you interested in wholesale purchase?',
+        'default'   => '¿Estás interesado en el tiempo libre?',
         'transport' => 'refresh',
     ));
     $wp_customize->add_control('wholesale_title', array(
-        'label'    => 'Заголовок блока "Оптовые закупки"',
+        'label'    => 'Título del bloque "Compras al por mayor"',
         'section'  => 'synergymax_wholesale_section',
         'type'     => 'text',
     ));
 
     // Описание блока
     $wp_customize->add_setting('wholesale_description', array(
-        'default'   => 'Submit a request for a quote and we will give you an interesting offer.',
+        'default'   => 'Subtitula una solicitud de cotización y te daremos una oferta interesante.',
         'transport' => 'refresh',
     ));
     $wp_customize->add_control('wholesale_description', array(
-        'label'    => 'Описание блока "Оптовые закупки"',
+        'label'    => 'Descripción del bloque "Compras al por mayor"',
         'section'  => 'synergymax_wholesale_section',
         'type'     => 'textarea',
     ));
@@ -338,15 +347,15 @@ function customize_checkout_fields($fields) {
 
     // Настройка полей с приоритетом
     $fields['billing']['billing_country'] = array_merge($fields['billing']['billing_country'], [
-        'label' => 'Country',
-        'placeholder' => 'Россия',
+        'label' => 'País',
+        'placeholder' => 'Espana',
         'type' => 'text',
         'priority' => 10
     ]);
 
     $fields['billing']['billing_state'] = [
         'label' => 'Province ',
-        'placeholder' => 'Стерлитамак',
+        'placeholder' => 'Valencia',
         'type' => 'text',
         'required' => true,
         'class' => ['form-row-wide'],
@@ -354,8 +363,8 @@ function customize_checkout_fields($fields) {
     ];
 
     $fields['billing']['billing_city'] = [
-        'label' => 'City',
-        'placeholder' => 'Проспект Карла Маркса',
+        'label' => 'Ciudad',
+        'placeholder' => 'Valencia',
         'required' => true,
         'class' => ['form-row-wide'],
         'priority' => 30
@@ -370,15 +379,15 @@ function customize_checkout_fields($fields) {
     ];
 
     $fields['billing']['billing_address_1'] = [
-        'label' => 'Street',
-        'placeholder' => 'Проспект Карла Маркса',
+        'label' => 'Calle',
+        'placeholder' => 'Calle Mayor',
         'required' => true,
         'class' => ['form-row-wide'],
         'priority' => 50
     ];
 
     $fields['billing']['billing_address_2'] = [
-        'label' => 'House number',
+        'label' => 'Número de casa',
         'placeholder' => '24',
         'required' => true,
         'class' => ['form-row-wide'],
@@ -386,16 +395,16 @@ function customize_checkout_fields($fields) {
     ];
 
     $fields['billing']['billing_phone'] = [
-        'label' => 'Phone',
-        'placeholder' => '+7 (997) 999-77-717',
+        'label' => 'Teléfono',
+        'placeholder' => '+34 (997) 999-77-717',
         'required' => true,
         'class' => ['form-row-wide'],
         'priority' => 70
     ];
 
     $fields['billing']['billing_email'] = [
-        'label' => 'E-mail address',
-        'placeholder' => 'rus.ster.km24@apoditclinic.ru',
+        'label' => 'Correo electrónico',
+        'placeholder' => 'ster.km24@synergymax.es',
         'required' => true,
         'class' => ['form-row-wide'],
         'priority' => 80
@@ -420,24 +429,24 @@ add_filter('woocommerce_default_address_fields', 'custom_override_default_addres
 function custom_override_default_address_fields($fields) {
     // Пример изменения label и placeholder
     $fields['country']['label'] = 'Country';
-    $fields['country']['placeholder'] = 'Россия';
+    $fields['country']['placeholder'] = 'Espana';
     $fields['country']['priority'] = 10;
 
     $fields['state']['label'] = 'Province ';
-    $fields['state']['placeholder'] = 'Башкортостан';
+    $fields['state']['placeholder'] = 'Valencia';
     $fields['state']['required'] = true;
     $fields['state']['priority'] = 20;
 
     $fields['city']['label'] = 'City';
-    $fields['city']['placeholder'] = 'Стерлитамак';
+    $fields['city']['placeholder'] = 'Valencia';
     $fields['city']['priority'] = 30;
 
     $fields['postcode']['label'] = 'Index';
-    $fields['postcode']['placeholder'] = '453100';
+    $fields['postcode']['placeholder'] = '45500';
     $fields['postcode']['priority'] = 40;
 
     $fields['address_1']['label'] = 'Street';
-    $fields['address_1']['placeholder'] = 'Проспект Карла Маркса';
+    $fields['address_1']['placeholder'] = 'Calle mayor';
     $fields['address_1']['priority'] = 50;
 
     $fields['address_2']['label'] = 'House number';
@@ -469,7 +478,7 @@ function add_custom_class_to_checkout_labels( $field_html, $key, $args, $value )
 //временно отключу некоторые пункты в меню 
 
 function synergymax_disable_links_in_item($menu_item) {
-    $disabled_items = array('Contacts', 'Events', 'Academy', 'Partnership');
+    $disabled_items = array('Contactos', 'Eventos', 'Academia', 'Asociación');
 
     // Сверяем заголовок пункта меню
     if ( in_array($menu_item->title, $disabled_items) ) {

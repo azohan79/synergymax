@@ -140,11 +140,11 @@ get_header();
                 endif; 
 
 
-                echo '<a href="#" class="publication__btn">Load more</a>';
+                echo '<a href="#" class="publication__btn">Cargar más</a>';
 
                 wp_reset_postdata();
             else :
-                echo '<p>No news available.</p>';
+                echo '<p>No hay noticias disponibles.</p>';
             endif; 
             ?>
         </div>

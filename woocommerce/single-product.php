@@ -79,7 +79,7 @@ get_header('shop'); ?>
                     </div>
                 </div>
                 <div class="coverbase__right">
-                    <h3 class="coverbase__right-title">Product volume</h3>
+                    <h3 class="coverbase__right-title">Volumen del producto</h3>
                     <div class="coverbase__right-volume">
                         <?php
                         $volume_terms = wc_get_product_terms($product->get_id(), 'pa_volume', array('fields' => 'all'));
@@ -99,7 +99,7 @@ get_header('shop'); ?>
                     </div>
                     <div class="coverbase__right-price">
                         <div>
-                            <h4 class="coverbase__right-price--title">Price</h4>
+                            <h4 class="coverbase__right-price--title">Precio</h4>
                             <?php if ($product->is_on_sale()) : ?>
                                 <div class="coverbase__right-price--old"><?php echo $product->get_regular_price(); ?>.00 €</div>
                                 <div class="coverbase__right-price--new"><?php echo $product->get_sale_price(); ?>.00 €</div>
@@ -115,8 +115,8 @@ get_header('shop'); ?>
                         </form>
                     </div>
                     <div class="coverbase__right-information">
-                        <p class="coverbase__right-information--info">Are you a company? If you want to purchase products at wholesale prices, fill out the application and we will contact you</p>
-                        <button class="coverbase__right-information--btn">Apply for wholesale pricing</button>
+                        <p class="coverbase__right-information--info">¿Eres una empresa? Si deseas comprar productos a precio mayorista, completa la solicitud y nos pondremos en contacto contigo.</p>
+                        <button class="coverbase__right-information--btn">Solicitar precios al por mayor</button>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@ get_header('shop'); ?>
         <article class="information">
             <div class="information__block">
                 <div class="information__item">
-                    <h2 class="information__item-name">Product description</h2>
+                    <h2 class="information__item-name">Descripción del Producto</h2>
                     <div class="information__item-icon">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrows/Chevron-Right.svg" alt="shewron">
                     </div>
@@ -174,7 +174,7 @@ get_header('shop'); ?>
 
     if ($similar_products->have_posts()) : ?>
         <article class="product">
-            <h2 class="product__title">We recommend to buy with this product</h2>
+            <h2 class="product__title">Recomendamos comprar con este producto.</h2>
             <div class="splide" role="group" aria-label="Splide Basic HTML Example">
                 <div class="splide__track">
                     <ul class="splide__list">
@@ -279,7 +279,7 @@ get_header('shop'); ?>
 
     if ($popular_products->have_posts()) : ?>
         <article class="product">
-            <h2 class="product__title">Others are buying with this product</h2>
+            <h2 class="product__title">Otros están comprando con este producto</h2>
             <div class="splide" id="slider2" role="group" aria-label="Splide Basic HTML Example">
                 <div class="splide__track">
                     <ul class="splide__list">
