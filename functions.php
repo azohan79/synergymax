@@ -37,21 +37,8 @@ function synergymax_styles_scripts()
         true
     );
 
-    // Подключение wishlist.js
-    wp_enqueue_script(
-        'wishlist-js',
-        get_template_directory_uri() . '/assets/js/wishlist.js',
-        array('jquery'),
-        filemtime(get_template_directory() . '/assets/js/wishlist.js'),
-        true
-    );
 }
-
 add_action('wp_enqueue_scripts', 'synergymax_styles_scripts');
-
-
-
-
 
 class Synergymax_Walker_Nav extends Walker_Nav_Menu
 {
@@ -169,102 +156,7 @@ class Synergymax_Walker_Footer extends Walker_Nav_Menu
     }
 }
 
-function synergymax_customize_register($wp_customize)
-{
-    // Заголовок блока "Годовщина"
-    $wp_customize->add_setting('report_title', array(
-        'default'   => '¡En agosto se lanzó hace 3 días!',
-        'transport' => 'refresh',
-    ));
-    $wp_customize->add_control('report_title', array(
-        'label'    => 'Bloque "Годовщина"',
-        'section'  => 'synergymax_report_section',
-        'type'     => 'text',
-    ));
 
-    // Описание блока
-    $wp_customize->add_setting('report_description', array(
-        'default'   => 'Muestre fotografías y vídeos de la compañía Synergy Max con tres nuevas funciones. Катания на яхте и многое другое.',
-        'transport' => 'refresh',
-    ));
-    $wp_customize->add_control('report_description', array(
-        'label'    => 'Descripción del bloque "Годовщина"',
-        'section'  => 'synergymax_report_section',
-        'type'     => 'textarea',
-    ));
-
-    // Текст кнопки
-    $wp_customize->add_setting('report_button_text', array(
-        'default'   => 'Hablar',
-        'transport' => 'refresh',
-    ));
-    $wp_customize->add_control('report_button_text', array(
-        'label'    => 'Текст кнопки',
-        'section'  => 'synergymax_report_section',
-        'type'     => 'text',
-    ));
-
-    // Добавляем секцию в Customizer
-    $wp_customize->add_section('synergymax_report_section', array(
-        'title'    => 'Configuración del bloque de aniversario',
-        'priority' => 30,
-    ));
-}
-add_action('customize_register', 'synergymax_customize_register');
-
-function synergymax_customize_wholesale($wp_customize)
-{
-    // Заголовок блока "Оптовые закупки"
-    $wp_customize->add_setting('wholesale_title', array(
-        'default'   => '¿Estás interesado en el tiempo libre?',
-        'transport' => 'refresh',
-    ));
-    $wp_customize->add_control('wholesale_title', array(
-        'label'    => 'Título del bloque "Compras al por mayor"',
-        'section'  => 'synergymax_wholesale_section',
-        'type'     => 'text',
-    ));
-
-    // Описание блока
-    $wp_customize->add_setting('wholesale_description', array(
-        'default'   => 'Subtitula una solicitud de cotización y te daremos una oferta interesante.',
-        'transport' => 'refresh',
-    ));
-    $wp_customize->add_control('wholesale_description', array(
-        'label'    => 'Descripción del bloque "Compras al por mayor"',
-        'section'  => 'synergymax_wholesale_section',
-        'type'     => 'textarea',
-    ));
-
-    // Текст кнопки
-    $wp_customize->add_setting('wholesale_button_text', array(
-        'default'   => 'Submit',
-        'transport' => 'refresh',
-    ));
-    $wp_customize->add_control('wholesale_button_text', array(
-        'label'    => 'Текст кнопки',
-        'section'  => 'synergymax_wholesale_section',
-        'type'     => 'text',
-    ));
-
-    // Ссылка кнопки
-    $wp_customize->add_setting('wholesale_button_link', array(
-        'default'   => '#',
-        'transport' => 'refresh',
-    ));
-    $wp_customize->add_control('wholesale_button_link', array(
-        'label'    => 'Ссылка кнопки',
-        'section'  => 'synergymax_wholesale_section',
-        'type'     => 'url',
-    ));
-
-    // Добавляем секцию в Customizer
-    $wp_customize->add_section('synergymax_wholesale_section', array(
-        'title'    => 'Настройки блока "Оптовые закупки"',
-        'priority' => 31,
-    ));
-}
-add_action('customize_register', 'synergymax_customize_wholesale');
 
 function synergymax_get_variation_data()
 {
@@ -487,3 +379,29 @@ function synergymax_disable_links_in_item($menu_item) {
     return $menu_item;
 }
 add_filter('wp_setup_nav_menu_item', 'synergymax_disable_links_in_item', 20);
+
+
+// Добавляем новый метод сортировки от старых товаров к новым
+add_filter( 'woocommerce_get_catalog_ordering_args', 'custom_oldest_to_newest_ordering_args' );
+function custom_oldest_to_newest_ordering_args( $args ) {
+    if ( isset( $_GET['orderby'] ) && $_GET['orderby'] === 'oldest_to_newest' ) {
+        $args['orderby'] = 'date';
+        $args['order'] = 'ASC';
+    }
+    return $args;
+}
+
+// Добавляем опцию в выпадающий список сортировки
+add_filter( 'woocommerce_catalog_orderby', 'add_oldest_to_newest_orderby_option' );
+function add_oldest_to_newest_orderby_option( $orderby ) {
+    $orderby['oldest_to_newest'] = 'По порядку добавления (сначала старые)';
+    return $orderby;
+}
+
+// Устанавливаем сортировку по умолчанию (от старых к новым)
+add_filter('woocommerce_default_catalog_orderby', 'set_default_catalog_orderby');
+
+function set_default_catalog_orderby() {
+    return 'oldest_to_newest'; 
+}
+

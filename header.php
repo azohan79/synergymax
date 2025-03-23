@@ -145,6 +145,17 @@
                         <span class="header__menu-item"></span>
                         <span class="header__menu-item"></span>
                     </div>
+					    <nav class="navigation">
+                            <ul class="navigation__menu">
+                                <a href="/shop/" class="navigation__link">Catalog</a>
+                                <a href="/about/" class="navigation__link">Sobre</a> 
+                                <a href="#" class="navigation__link">Asociación</a>
+                                <a href="#" class="navigation__link">Academia</a>                   
+                                <a href="#" class="navigation__link">Eventos</a>
+                                <a href="/news/" class="navigation__link">Noticas</a>
+                                <a href="#" class="navigation__link">Contactos</a>                  
+                            </ul>
+                        </nav>    
                 </div>
 
             </div>

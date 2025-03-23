@@ -40,7 +40,7 @@ get_header('shop'); ?>
                             <div class="coverbase__name"><?php echo esc_html($color['name']); ?></div>
                             <div class="coverbase__color"><img src="<?php echo esc_url($color['img']); ?>" alt="color"></div>
                         <?php } ?>
-                        
+
                     </div>
                     <div class="coverbase__info">
                         <?php echo $product->get_short_description(); ?>
@@ -100,11 +100,12 @@ get_header('shop'); ?>
                     <div class="coverbase__right-price">
                         <div>
                             <h4 class="coverbase__right-price--title">Precio</h4>
+							
                             <?php if ($product->is_on_sale()) : ?>
-                                <div class="coverbase__right-price--old"><?php echo $product->get_regular_price(); ?>.00 €</div>
-                                <div class="coverbase__right-price--new"><?php echo $product->get_sale_price(); ?>.00 €</div>
+                                <div class="coverbase__right-price--old"><?php echo $product->get_regular_price(); ?> €</div>
+                                <div class="coverbase__right-price--new"><?php echo $product->get_sale_price(); ?> €</div>
                             <?php else : ?>
-                                <div class="coverbase__right-price--new"><?php echo $product->get_regular_price(); ?>.00 €</div>
+                                <div class="coverbase__right-price--new"><?php echo $product->get_regular_price(); ?> €</div>
                             <?php endif; ?>
                         </div>
                         <form action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post">
@@ -119,8 +120,6 @@ get_header('shop'); ?>
                         <button class="coverbase__right-information--btn">Solicitar precios al por mayor</button>
                     </div>
                 </div>
-            </div>
-
         </article>
         <article class="information">
             <div class="information__block">
@@ -220,25 +219,52 @@ get_header('shop'); ?>
                                         <div class="product__item-prices product__prices">
                                             <div class="product__prices-quantity product__quantity">
                                                 <?php
-                                                // Получаем значения атрибута pa_volume
-                                                $volume_terms = wc_get_product_terms($product->get_id(), 'pa_volume', array('fields' => 'all'));
+                                                if ($product->is_type('variable')) {
+                                                    $variations = $product->get_available_variations();
 
-                                                if (!empty($volume_terms) && !is_wp_error($volume_terms)) {
-                                                    foreach ($volume_terms as $index => $term) {
-                                                        // Добавляем класс active первому элементу
+                                                    foreach ($variations as $index => $variation) {
                                                         $class = ($index === 0) ? 'product__quantity-item active' : 'product__quantity-item';
-                                                        echo '<span class="' . esc_attr($class) . '">' . esc_html($term->name) . '</span>';
+                                                        $variation_id = $variation['variation_id'];
+                                                        $variation_obj = wc_get_product($variation_id);
+
+                                                        // Получаем цены
+                                                        $regular_price = $variation_obj->get_regular_price();
+                                                        $sale_price = $variation_obj->get_sale_price();
+
+                                                        // Сохраняем данные о ценах в атрибутах
+                                                        echo '<span class="' . esc_attr($class) . '" data-variation-id="' . esc_attr($variation_id) . '" data-regular-price="' . esc_attr($regular_price) . '" data-sale-price="' . esc_attr($sale_price) . '">';
+                                                        echo esc_html(implode(', ', $variation['attributes']));
+                                                        echo '</span>';
                                                     }
                                                 }
                                                 ?>
                                             </div>
-                                            <div>
-                                                <?php if ($product->is_on_sale()) : ?>
-                                                    <div class="product__prices-old"><?php echo $product->get_regular_price(); ?>.00 €</div>
-                                                    <div class="product__prices-price"><?php echo $product->get_sale_price(); ?>.00 €</div>
-                                                <?php else : ?>
-                                                    <div class="product__prices-price"><?php echo $product->get_regular_price(); ?>.00 €</div>
-                                                <?php endif; ?>
+                                            <div class="product__prices-price">
+                                                <?php
+                                                if ($product->is_type('variable')) {
+                                                    // Получаем данные первой вариации
+                                                    $first_variation = $variations[0];
+                                                    $first_variation_obj = wc_get_product($first_variation['variation_id']);
+                                                    $first_regular_price = $first_variation_obj->get_regular_price();
+                                                    $first_sale_price = $first_variation_obj->get_sale_price();
+
+                                                    // Выводим цену для первой вариации
+                                                    if ($first_sale_price) {
+                                                        echo '<div class="product__prices-old">' . wc_price($first_regular_price) . '</div>';
+                                                        echo '<div class="product__prices-price">' . wc_price($first_sale_price) . '</div>';
+                                                    } else {
+                                                        echo '<div class="product__prices-price">' . wc_price($first_regular_price) . '</div>';
+                                                    }
+                                                } else {
+                                                    // Для простых товаров
+                                                    if ($product->is_on_sale()) {
+                                                        echo '<div class="product__prices-old">' . wc_price($product->get_regular_price()) . '</div>';
+                                                        echo '<div class="product__prices-price">' . wc_price($product->get_sale_price()) . '</div>';
+                                                    } else {
+                                                        echo '<div class="product__prices-price">' . wc_price($product->get_regular_price()) . '</div>';
+                                                    }
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                         <div class="product__item-footer">
@@ -247,12 +273,25 @@ get_header('shop'); ?>
                                                 <input type="number" class="product__counter-coll" value="1" min="1">
                                                 <div class="product__counter-plus"></div>
                                             </div>
-                                            <form action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post">
-                                                <input type="hidden" name="quantity" class="product-quantity" value="1">
-                                                <button type="submit" class="product__item-btn">
-                                                    <?php echo esc_html($product->add_to_cart_text()); ?>
-                                                </button>
-                                            </form>
+                                            <?php
+
+                                            if ($product->is_type('variable')) {
+                                                $first_variation = $variations[0];
+                                                $first_variation_obj = wc_get_product($first_variation['variation_id']); ?>
+                                                <form action="?add-to-cart=<?php echo esc_attr($first_variation['variation_id']); ?>" method="post">
+                                                    <input type="hidden" name="quantity" class="product-quantity" value="1">
+                                                    <button type="submit" class="product__item-btn">
+                                                        <?php echo esc_html($first_variation_obj->add_to_cart_text()); ?>
+                                                    </button>
+                                                </form>
+                                            <?php } else { ?>
+                                                <form action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post">
+                                                    <input type="hidden" name="quantity" class="product-quantity" value="1">
+                                                    <button type="submit" class="product__item-btn">
+                                                        <?php echo esc_html($product->add_to_cart_text()); ?>
+                                                    </button>
+                                                </form>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -322,44 +361,84 @@ get_header('shop'); ?>
 
                                     </a>
                                     <div class="product__item_foot">
-                                        <div class="product__item-prices product__prices">
-                                            <div class="product__prices-quantity product__quantity">
-                                                <?php
-                                                // Получаем значения атрибута pa_volume
-                                                $volume_terms = wc_get_product_terms($product->get_id(), 'pa_volume', array('fields' => 'all'));
+								<div class="product__item-prices product__prices">
+									<div class="product__prices-quantity product__quantity">
+										<?php
+										if ($product->is_type('variable')) {
+											$variations = $product->get_available_variations();
 
-                                                if (!empty($volume_terms) && !is_wp_error($volume_terms)) {
-                                                    foreach ($volume_terms as $index => $term) {
-                                                        // Добавляем класс active первому элементу
-                                                        $class = ($index === 0) ? 'product__quantity-item active' : 'product__quantity-item';
-                                                        echo '<span class="' . esc_attr($class) . '">' . esc_html($term->name) . '</span>';
-                                                    }
-                                                }
-                                                ?>
-                                            </div>
-                                            <div>
-                                                <?php if ($product->is_on_sale()) : ?>
-                                                    <div class="product__prices-old"><?php echo $product->get_regular_price(); ?>.00 €</div>
-                                                    <div class="product__prices-price"><?php echo $product->get_sale_price(); ?>.00 €</div>
-                                                <?php else : ?>
-                                                    <div class="product__prices-price"><?php echo $product->get_regular_price(); ?>.00 €</div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                        <div class="product__item-footer">
-                                            <div class="product__item-counter product__counter">
-                                                <div class="product__counter-minus"></div>
-                                                <input type="number" class="product__counter-coll" value="1" min="1">
-                                                <div class="product__counter-plus"></div>
-                                            </div>
-                                            <form action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post">
-                                                <input type="hidden" name="quantity" class="product-quantity" value="1">
-                                                <button type="submit" class="product__item-btn">
-                                                    <?php echo esc_html($product->add_to_cart_text()); ?>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
+											foreach ($variations as $index => $variation) {
+												$class = ($index === 0) ? 'product__quantity-item active' : 'product__quantity-item';
+												$variation_id = $variation['variation_id'];
+												$variation_obj = wc_get_product($variation_id);
+
+												// Получаем цены
+												$regular_price = $variation_obj->get_regular_price();
+												$sale_price = $variation_obj->get_sale_price();
+
+												// Сохраняем данные о ценах в атрибутах
+												echo '<span class="' . esc_attr($class) . '" data-variation-id="' . esc_attr($variation_id) . '" data-regular-price="' . esc_attr($regular_price) . '" data-sale-price="' . esc_attr($sale_price) . '">';
+												echo esc_html(implode(', ', $variation['attributes']));
+												echo '</span>';
+											}
+										}
+										?>
+									</div>
+									<div class="product__prices-price">
+										<?php
+										if ($product->is_type('variable')) {
+											// Получаем данные первой вариации
+											$first_variation = $variations[0];
+											$first_variation_obj = wc_get_product($first_variation['variation_id']);
+											$first_regular_price = $first_variation_obj->get_regular_price();
+											$first_sale_price = $first_variation_obj->get_sale_price();
+
+											// Выводим цену для первой вариации
+											if ($first_sale_price) {
+												echo '<div class="product__prices-old">' . wc_price($first_regular_price) . '</div>';
+												echo '<div class="product__prices-price">' . wc_price($first_sale_price) . '</div>';
+											} else {
+												echo '<div class="product__prices-price">' . wc_price($first_regular_price) . '</div>';
+											}
+										} else {
+											// Для простых товаров
+											if ($product->is_on_sale()) {
+												echo '<div class="product__prices-old">' . wc_price($product->get_regular_price()) . '</div>';
+												echo '<div class="product__prices-price">' . wc_price($product->get_sale_price()) . '</div>';
+											} else {
+												echo '<div class="product__prices-price">' . wc_price($product->get_regular_price()) . '</div>';
+											}
+										}
+										?>
+									</div>
+								</div>
+								<div class="product__item-footer">
+									<div class="product__item-counter product__counter">
+										<div class="product__counter-minus"></div>
+										<input type="number" class="product__counter-coll" value="1" min="1">
+										<div class="product__counter-plus"></div>
+									</div>
+									<?php
+
+									if ($product->is_type('variable')) {
+										$first_variation = $variations[0];
+										$first_variation_obj = wc_get_product($first_variation['variation_id']); ?>
+										<form action="?add-to-cart=<?php echo esc_attr($first_variation['variation_id']); ?>" method="post">
+											<input type="hidden" name="quantity" class="product-quantity" value="1">
+											<button type="submit" class="product__item-btn">
+												<?php echo esc_html($first_variation_obj->add_to_cart_text()); ?>
+											</button>
+										</form>
+									<?php } else { ?>
+										<form action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post">
+											<input type="hidden" name="quantity" class="product-quantity" value="1">
+											<button type="submit" class="product__item-btn">
+												<?php echo esc_html($product->add_to_cart_text()); ?>
+											</button>
+										</form>
+									<?php } ?>
+								</div>
+							</div>
                                 </div>
                             </li>
                         <?php endwhile; ?>
@@ -369,7 +448,7 @@ get_header('shop'); ?>
         </article>
         <?php wp_reset_postdata(); ?>
     <?php endif; ?>
-    <script>
+     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Получаем элементы
             const mainImage = document.getElementById('main-product-image'); // Основное изображение
@@ -474,5 +553,6 @@ get_header('shop'); ?>
             updateImage();
         });
     </script>
+
 </main>
 <?php get_footer('shop'); ?>

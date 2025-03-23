@@ -95,135 +95,152 @@
     </div>
 </article>
 
-<article class="product">
-    <div class="container">
-        <h2 class="product__title">Puente popular</h2>
+	<?php
+// Получаем самые популярные товары
+$args = array(
+    'post_type' => 'product',
+    'posts_per_page' => 10, // Количество популярных товаров
+    'meta_key' => 'total_sales', // Сортируем по количеству продаж
+    'orderby' => 'meta_value_num', // Сортировка по числовому значению
+    'order' => 'DESC', // По убыванию
+);
 
-        
-        <div class="splide" id="slider-popular-home" role="group" aria-label="Popular Products Slider">
+$popular_products = new WP_Query($args);
+
+if ($popular_products->have_posts()) : ?>
+    <article class="product">
+        <h2 class="product__title">Otros están comprando con este producto</h2>
+        <div class="splide" id="slider2">
             <div class="splide__track">
                 <ul class="splide__list">
-                    <?php
-					
-				$args = array(
-                    'post_type'      => 'product',
-                    'posts_per_page' => 4,
-					'post_status'    => 'publish',
-					'post_parent'    => 0,
-                    'meta_key'       => 'total_sales',
-                    'orderby'        => 'date',
-                    'order'          => 'DESC',
-                );
-                $loop = new WP_Query($args);
-					
+                    <?php while ($popular_products->have_posts()) : $popular_products->the_post(); 
+                        global $product; // Вот правильное место для получения глобального объекта
+                        
+                        // Далее ваш код без изменений
+                        $terms = get_the_terms($product->get_id(), 'product_cat');
+                        $category_names = [];
 
-                    if ($loop->have_posts()) :
-                        while ($loop->have_posts()) : $loop->the_post();
-                            global $product;
-
-                            
-                            $terms = get_the_terms($product->get_id(), 'product_cat');
-                            $category_names = [];
-                            if ($terms && !is_wp_error($terms)) {
-                                foreach ($terms as $term) {
-                                    $category_names[] = $term->name;
-                                }
+                        if ($terms && !is_wp_error($terms)) {
+                            foreach ($terms as $term) {
+                                $category_names[] = $term->name; // Собираем названия категорий
                             }
-                            $categories_string = implode(', ', $category_names);
-                            ?>
-                            <li class="splide__slide">
-                                <div class="product__item">
-                                    <a href="<?php the_permalink(); ?>">
-                                        
-                                        <div class="product__item-img allProduct__item-img">
-                                            <?php echo $product->get_image(); ?>
+                        }
+
+                        $categories_string = implode(', ', $category_names); ?>
+                        <li class="splide__slide">
+                            <div class="product__item">
+                                <a href="<?php the_permalink(); ?>">
+                                    <div class="product__item-img allProduct__item-img">
+                                        <?php echo $product->get_image(); ?>
+                                    </div>
+                                    <?php if ($product->is_on_sale()) { ?>
+                                        <div class="product__item-percentages allProduct__item-percentages">
+                                            %
                                         </div>
-
-                                        
-                                        <?php if ($product->is_on_sale()) : ?>
-                                            <div class="product__item-percentages allProduct__item-percentages">%</div>
-                                        <?php endif; ?>
-
-                                        
-                                        <h3 class="product__item-title allProduct__item-title">
-                                            <?php echo $categories_string; ?>
-                                        </h3>
-                                        
-                                        <h3 class="product__item-subtitle allProduct__item-subtitle">
-                                            <?php echo $product->get_name(); ?>
-                                        </h3>
-
-                                        
+                                    <?php } ?>
+                                    <h3 class="product__item-title allProduct__item-title"><?php echo $categories_string; ?></h3>
+                                    <h3 class="product__item-subtitle allProduct__item-subtitle"><?php echo $product->get_name(); ?></h3>
                                         <div class="product__item-demonstration product__demonstration allProduct__demonstraion">
                                             <?php
-                                            
                                             $color = get_field('pa_color');
                                             if ($color && !empty($color['name']) && !empty($color['img'])) {
-                                                ?>
-                                                <h4 class="product__demonstration-name">
-                                                    <?php echo esc_html($color['name']); ?>
-                                                </h4>
+                                            ?>
+
+                                                <h4 class="product__demonstration-name"><?php echo esc_html($color['name']); ?></h4>
                                                 <img src="<?php echo esc_url($color['img']) ?>" alt="color" class="product__demonstration-img">
                                             <?php } ?>
                                         </div>
+
+
                                     </a>
-
                                     <div class="product__item_foot">
-                                        
-                                        <div class="product__item-prices product__prices">
-                                            <div class="product__prices-quantity product__quantity">
-                                                <?php
-                                                
-                                                $volume_terms = wc_get_product_terms($product->get_id(), 'pa_volume', array('fields' => 'all'));
-                                                if (!empty($volume_terms) && !is_wp_error($volume_terms)) {
-                                                    foreach ($volume_terms as $index => $term) {
-                                                        $class = ($index === 0) ? 'product__quantity-item active' : 'product__quantity-item';
-                                                        echo '<span class="' . esc_attr($class) . '">' . esc_html($term->name) . '</span>';
-                                                    }
-                                                }
-                                                ?>
-                                            </div>
-                                            <div>
-                                                <?php if ($product->is_on_sale()) : ?>
-                                                    <div class="product__prices-old"><?php echo wc_price($product->get_regular_price()); ?></div>
-                                                    <div class="product__prices-price"><?php echo wc_price($product->get_sale_price()); ?></div>
-                                                <?php else : ?>
-                                                    <div class="product__prices-price"><?php echo wc_price($product->get_regular_price()); ?></div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
+								<div class="product__item-prices product__prices">
+									<div class="product__prices-quantity product__quantity">
+										<?php
+										if ($product->is_type('variable')) {
+											$variations = $product->get_available_variations();
 
-                                        
-                                        <div class="product__item-footer">
-                                            <div class="product__item-counter product__counter">
-                                                <div class="product__counter-minus"></div>
-                                                <input type="number" class="product__counter-coll" value="1" min="1">
-                                                <div class="product__counter-plus"></div>
-                                            </div>
-                                            <form action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post">
-                                                <input type="hidden" name="quantity" class="product-quantity" value="1">
-                                                <button type="submit" class="product__item-btn">
-                                                    <?php echo esc_html($product->add_to_cart_text()); ?>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
+											foreach ($variations as $index => $variation) {
+												$class = ($index === 0) ? 'product__quantity-item active' : 'product__quantity-item';
+												$variation_id = $variation['variation_id'];
+												$variation_obj = wc_get_product($variation_id);
+
+												// Получаем цены
+												$regular_price = $variation_obj->get_regular_price();
+												$sale_price = $variation_obj->get_sale_price();
+
+												// Сохраняем данные о ценах в атрибутах
+												echo '<span class="' . esc_attr($class) . '" data-variation-id="' . esc_attr($variation_id) . '" data-regular-price="' . esc_attr($regular_price) . '" data-sale-price="' . esc_attr($sale_price) . '">';
+												echo esc_html(implode(', ', $variation['attributes']));
+												echo '</span>';
+											}
+										}
+										?>
+									</div>
+									<div class="product__prices-price">
+										<?php
+										if ($product->is_type('variable')) {
+											// Получаем данные первой вариации
+											$first_variation = $variations[0];
+											$first_variation_obj = wc_get_product($first_variation['variation_id']);
+											$first_regular_price = $first_variation_obj->get_regular_price();
+											$first_sale_price = $first_variation_obj->get_sale_price();
+
+											// Выводим цену для первой вариации
+											if ($first_sale_price) {
+												echo '<div class="product__prices-old">' . wc_price($first_regular_price) . '</div>';
+												echo '<div class="product__prices-price">' . wc_price($first_sale_price) . '</div>';
+											} else {
+												echo '<div class="product__prices-price">' . wc_price($first_regular_price) . '</div>';
+											}
+										} else {
+											// Для простых товаров
+											if ($product->is_on_sale()) {
+												echo '<div class="product__prices-old">' . wc_price($product->get_regular_price()) . '</div>';
+												echo '<div class="product__prices-price">' . wc_price($product->get_sale_price()) . '</div>';
+											} else {
+												echo '<div class="product__prices-price">' . wc_price($product->get_regular_price()) . '</div>';
+											}
+										}
+										?>
+									</div>
+								</div>
+								<div class="product__item-footer">
+									<div class="product__item-counter product__counter">
+										<div class="product__counter-minus"></div>
+										<input type="number" class="product__counter-coll" value="1" min="1">
+										<div class="product__counter-plus"></div>
+									</div>
+									<?php
+
+									if ($product->is_type('variable')) {
+										$first_variation = $variations[0];
+										$first_variation_obj = wc_get_product($first_variation['variation_id']); ?>
+										<form action="?add-to-cart=<?php echo esc_attr($first_variation['variation_id']); ?>" method="post">
+											<input type="hidden" name="quantity" class="product-quantity" value="1">
+											<button type="submit" class="product__item-btn">
+												<?php echo esc_html($first_variation_obj->add_to_cart_text()); ?>
+											</button>
+										</form>
+									<?php } else { ?>
+										<form action="<?php echo esc_url($product->add_to_cart_url()); ?>" method="post">
+											<input type="hidden" name="quantity" class="product-quantity" value="1">
+											<button type="submit" class="product__item-btn">
+												<?php echo esc_html($product->add_to_cart_text()); ?>
+											</button>
+										</form>
+									<?php } ?>
+								</div>
+							</div>
                                 </div>
                             </li>
-                            <?php
-                        endwhile;
-                        wp_reset_postdata();
-                    else :
-                        echo '<p>No popular products found.</p>';
-                    endif;
-                    ?>
-                </ul>
+                        <?php endwhile; ?>
+                    </ul>
+                </div>
             </div>
-        </div> 
-    </div>
-</article>
-
-
+        </article>
+        <?php wp_reset_postdata(); ?>
+    <?php endif; ?>
 
 
     

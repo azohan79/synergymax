@@ -1,9 +1,24 @@
-//hamburger
-const headerMenu = document.querySelector('.header__menu'),
-    navigation = document.querySelector('.navigation');
-headerMenu.addEventListener('click', (e) => {
-    navigation.classList.toggle('active')
-})
+document.addEventListener("DOMContentLoaded", function() {
+  const mobileMenu = document.querySelector('.navigation');
+  // Убираем класс active, если он есть, чтобы меню было скрыто
+  mobileMenu.classList.remove('active');
+
+  const menuButton = document.querySelector('.header__menu.header__final-item');
+  if (menuButton && mobileMenu) {
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      if (mobileMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    });
+  } else {
+    console.warn("Кнопка меню или мобильное меню не найдены!");
+  }
+});
+
+
 //acardion
 const blockInformation = document.querySelectorAll('.information__block'),
     informationItem = document.querySelectorAll('.information__item');

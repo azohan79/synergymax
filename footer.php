@@ -1,6 +1,6 @@
         <footer class="footer">
             <div class="footer__wrapper">
-                
+
                 <ul class="footer__list">
                     <?php
                     wp_nav_menu(array(
@@ -12,7 +12,7 @@
                     ?>
                 </ul>
 
-                
+
                 <ul class="footer__list">
                     <?php
                     wp_nav_menu(array(
@@ -24,7 +24,7 @@
                     ?>
                 </ul>
 
-                
+
                 <ul class="footer__list">
                     <?php
                     wp_nav_menu(array(
@@ -45,7 +45,7 @@
 
                 <div class="footer__container-1">
                     <h3 class="footer__social-title">Conócenos mejor en las redes sociales</h3>
-                    
+
                     <ul class="footer__social">
                         <?php
                         $social_links = array(
@@ -96,7 +96,7 @@
                         Website design & development by <span>MISSOFFDESIGN</span>
                     </p>
                 </div>
-                
+
                 <ul class="footer__cellar-list">
                     <?php
                     wp_nav_menu(array(
@@ -120,20 +120,48 @@
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const counters = document.querySelectorAll(".product__item-counter");
-                const products = document.querySelectorAll(".product__item");
+                const productItems = document.querySelectorAll('.product__item'); // Контейнеры товаров
 
-                if (counters.length > 0 && products.length > 0) {
-                    products.forEach(product => {
-                        const params = product.querySelectorAll(".product__quantity-item");
+                productItems.forEach(productItem => {
+                    const variationItems = productItem.querySelectorAll('.product__quantity-item');
+                    const priceContainer = productItem.querySelector('.product__prices-price');
+                    const form = productItem.querySelector('form'); // Форма добавления в корзину
+                    const addToCartButton = form ? form.querySelector('.product__item-btn') : null; // Кнопка добавления в корзину
 
-                        params.forEach(param => {
-                            param.addEventListener("click", function() {
-                                params.forEach(p => p.classList.remove("active"));
-                                this.classList.add("active");
+                    if (variationItems.length && priceContainer && form && addToCartButton) {
+                        // Обработчик клика на вариацию
+                        variationItems.forEach(item => {
+                            item.addEventListener('click', function() {
+                                // Убираем класс active у всех вариаций текущего товара
+                                variationItems.forEach(el => el.classList.remove('active'));
+
+                                // Добавляем класс active к выбранной вариации
+                                this.classList.add('active');
+
+                                // Получаем данные о ценах
+                                const regularPrice = this.getAttribute('data-regular-price');
+                                const salePrice = this.getAttribute('data-sale-price');
+                                const variationId = this.getAttribute('data-variation-id');
+
+                                // Обновляем цену
+                                if (salePrice) {
+                                    priceContainer.innerHTML = `
+                            <div class="product__prices-old">${wc_price(regularPrice)}</div>
+                            <div class="product__prices-price">${wc_price(salePrice)}</div>
+                        `;
+                                } else {
+                                    priceContainer.innerHTML = `
+                            <div class="product__prices-price">${wc_price(regularPrice)}</div>
+                        `;
+                                }
+                                const addToCartUrl = `?add-to-cart=${variationId}`;
+                                form.action = addToCartUrl;
                             });
                         });
-                    });
+                    }
+                });
 
+                if (counters.length > 0) {
                     counters.forEach(counter => {
                         const minus = counter.querySelector(".product__counter-minus");
                         const plus = counter.querySelector(".product__counter-plus");
@@ -166,10 +194,26 @@
                             form.addEventListener("submit", function(e) {
                                 hiddenQuantity.value = input.value;
                             });
-                        } 
+                        }
                     });
                 }
             });
+
+            // Функция для форматирования цены
+            function wc_price(price) {
+                // Форматируем цену: добавляем запятую для разделения тысяч и два знака после запятой
+                const formattedPrice = parseFloat(price).toFixed(2).replace('.', ',');
+
+                // Возвращаем цену в формате WooCommerce
+                return `
+        <span class="woocommerce-Price-amount amount">
+            <bdi>${formattedPrice}&nbsp;<span class="woocommerce-Price-currencySymbol">€</span></bdi>
+        </span>
+    `;
+            }
+			
+			
+		
         </script>
 
         </body>
